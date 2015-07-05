@@ -1,0 +1,32 @@
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button1"
+            android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:id="@+id/buttontimeselect"
+        android:layout_gravity="left" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/ic_add_alarm_white_24dp"
+            app:fabSize="normal" />
+
+    </android.support.design.widget.CoordinatorLayout>
+

@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_misc"
+        android:key="pref_general">
+
+        <Preference
+            android:title="@string/resetprefs"
+            android:key="preferencebutton"
+            android:summary="@string/resetprefssummary"
+            />
+
+        <Preference android:title="@string/prefs_web_page" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.aupifb.me" />
+        </Preference>
+
+        <Preference
+            android:key="pref_version"
+            android:title="@string/pref_version"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
