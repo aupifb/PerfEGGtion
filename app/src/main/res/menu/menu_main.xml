@@ -2,8 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
-    <item android:id="@+id/action_lolol"
-        android:title="lolol"
+    <item android:id="@+id/action_stop_timer"
+        android:title="Stop timer"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_pause_timer"
+        android:title="Pause timer"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_stop_alarm"
+        android:title="Stop alarm"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
 

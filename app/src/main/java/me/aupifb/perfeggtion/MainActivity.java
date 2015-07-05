@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean statering = false;
 
+    long notifnumber, timeremaining;
     Ringtone ring;
 
 
     int mId, mProgressStatus = 50; // id to properly update notification
-    long notifnumber; // variable used to store number/timer values for notification
     String notiftext;
     CountDownTimer timer1; // countdown timer
     int timerstate; // 0 = not running, 1 = running, 2 = paused
@@ -133,15 +133,42 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
-            case R.id.action_lolol:
+            case R.id.action_stop_alarm:
                 if (statering) {
                     Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
                     getApplicationContext().stopService(stopIntent);;
                 }
+            case R.id.action_stop_timer:
+                stoptimer();
+                break;
+            case R.id.action_pause_timer:
+                pausetimer();
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void stoptimer() {
+        timer1.cancel();
+        timerstate = 0;
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(mId);
+    }
+
+    private void pausetimer() {
+        if (timerstate == 1) {
+            timeremaining = notifnumber;
+            timer1.cancel();
+            timerstate = 2;
+            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(mId);
+        } else if (timerstate == 2){
+            countdownstart(timeremaining/1000);
+            timerstate = 1;
+        }
+
     }
 
     @Override
@@ -204,14 +231,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void countdownstart(final long countdowntime) {
-        if (timerstate == 0) {
+        if (timerstate != 1) {
 
             timerstate = 1;
             timer1 = new CountDownTimer(countdowntime * 1000, 100) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
-                    notifnumber = millisUntilFinished / 1000;
-                    notiftext = Long.toString(notifnumber);
+                    notifnumber = millisUntilFinished;
+                    notiftext = Long.toString(notifnumber/1000);
 
                     new Thread(new Runnable() {
                         public void run() {
@@ -257,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }.start();
-        } else Log.d("lol", "timerstate != 0 ");
+        } else Log.d("lol", "timerstate == 0 ");
     }
 
     public void timeselectalertdialog() {
