@@ -36,4 +36,7 @@
     <string name="onlybackgroundpreference">Notification in background only?</string>
     <string name="onlybackgroundpreferencesummary">Only display notification if Snacktest is in the background</string>
     <string name="pref_version">Version</string>
+    <string name="snackbar_timer_stopped">Timer stopped</string>
+    <string name="snackbar_undo_timer_stopped">Undo</string>
+    <string name="notif_timer_paused">Timer paused</string>
 </resources>

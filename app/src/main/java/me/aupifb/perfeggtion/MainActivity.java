@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_stop_timer:
                 stoptimer();
                 break;
-            case R.id.action_pause_timer:
+            case R.id.action_pause_play_timer:
                 pausetimer();
                 break;
             default:
@@ -151,10 +151,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void stoptimer() {
-        timer1.cancel();
-        timerstate = 0;
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(mId);
+        MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
+        timeremaining = notifnumber;
+        switch(timerstate) {
+            case 0:
+                break;
+            case 1:
+                timer1.cancel();
+                timerstate = 0;
+                notificationManager.cancel(mId);
+                mainActivityFragment.snackstoptimerinfragment();
+                break;
+            case 2:
+                timer1.cancel();
+                timerstate = 0;
+                notificationManager.cancel(mId);
+                mainActivityFragment.snackstoppausedtimerinfragment();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void stoptimer2() {
+        countdownstart(timeremaining/1000);
+        timerstate = 1;
+    }
+
+    public void stoptimer3() {
+        timerstate = 2;
+
     }
 
     private void pausetimer() {
@@ -163,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
             timer1.cancel();
             timerstate = 2;
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(mId);
+            mBuilder.setContentText(getString(R.string.notif_timer_paused));
+            notificationManager.notify(mId, mBuilder.build());
         } else if (timerstate == 2){
             countdownstart(timeremaining/1000);
             timerstate = 1;

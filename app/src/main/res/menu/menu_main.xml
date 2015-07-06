@@ -7,7 +7,7 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_pause_timer"
+    <item android:id="@+id/action_pause_play_timer"
         android:title="Pause timer"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
