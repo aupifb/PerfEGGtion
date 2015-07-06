@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
+    private boolean action1added = false;
+
     public static boolean isStatering() {
         return statering;
     }
@@ -241,15 +243,12 @@ public class MainActivity extends AppCompatActivity {
                 resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "testing", resultPendingIntent).build();
-
                 mBuilder
                         .setOngoing(booleanongoing)
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
                         .setAutoCancel(true) // notification automatically dismissed when the user touches it
                         .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
                         .setContentTitle("My notification")
-                        .addAction(testaction)
                         .setContentText(notiftext);
 
                 mBuilder
@@ -262,8 +261,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void countdownstart(final long countdowntime) {
+    if (action1added == false) {
+        Intent resultIntent = this.getIntent();
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "testing", resultPendingIntent).build();
+        mBuilder.addAction(testaction);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(mId, mBuilder.build());
+        action1added = true;
+        }
         if (timerstate != 1) {
-
             timerstate = 1;
             timer1 = new CountDownTimer(countdowntime * 1000, 100) {
                 @Override
