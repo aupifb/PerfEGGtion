@@ -236,18 +236,21 @@ public class MainActivity extends AppCompatActivity {
 
             if (isActivityVisible() && onlybackgroundpreference || !displaynotification) {
             } else {
+                // Creates an explicit intent for an Activity in your app
+                Intent resultIntent = this.getIntent();
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "testing", resultPendingIntent).build();
+
                 mBuilder
                         .setOngoing(booleanongoing)
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
                         .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                        .setSmallIcon(R.drawable.ic_timer_black_24dp)
+                        .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
                         .setContentTitle("My notification")
+                        .addAction(testaction)
                         .setContentText(notiftext);
-// Creates an explicit intent for an Activity in your app
-                Intent resultIntent = this.getIntent();
-                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 mBuilder
                         .setContentIntent(resultPendingIntent);
