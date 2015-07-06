@@ -243,6 +243,48 @@ public class MainActivity extends AppCompatActivity {
                 resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+                String textsecs, textmins;
+
+                int mins = (int) (notifnumber/60000);
+                int secs = (int) (notifnumber/1000-mins*60);
+
+                switch(mins) {
+                    default:
+                        textmins = mins + " minutes";
+                        break;
+                    case 0:
+                        textmins = "";
+                        break;
+                    case 1:
+                        textmins = mins + " minute";
+                        break;  }
+                switch(secs) {
+                    default:
+                        if (mins != 0) {
+                            textsecs = " and " + secs + " seconds.";
+                        } else {
+                            textsecs = secs + " seconds.";
+                        }
+                        break;
+                    case 0:
+                        if (mins != 0) {
+                            textsecs = ".";
+                        } else {
+                            textsecs = "almost ready.";
+                        }
+                        break;
+                    case 1:
+                        if (mins != 0) {
+                            textsecs = " and " + secs +" second.";
+                        } else {
+                            textsecs = secs + " seconds.";
+                        }
+                        break;  }
+
+
+                if (timerstate == 1) notiftext = "Time remaining: " + textmins + textsecs;
+
+
                 mBuilder
                         .setOngoing(booleanongoing)
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
