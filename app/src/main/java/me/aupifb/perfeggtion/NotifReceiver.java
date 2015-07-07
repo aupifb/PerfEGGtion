@@ -12,6 +12,6 @@ public class NotifReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent stopIntent = new Intent(context, AlarmService.class);
-        context.stopService(stopIntent);;
+        context.stopService(stopIntent);
     }
 }

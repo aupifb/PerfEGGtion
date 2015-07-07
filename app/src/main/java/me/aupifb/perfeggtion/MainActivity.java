@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
                             NotificationManager mNotificationManager =
                                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-                            mNotificationManager.cancel(mId); // cancel notification when app is in foreground (resumed)
+                            mNotificationManager.cancel(mId);
                             mNotificationManager.notify(mId2, mBuilder2.build());
                             action2added = true;
                     } else {
