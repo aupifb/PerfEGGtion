@@ -27,10 +27,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-
 public class MainActivity extends AppCompatActivity {
 
-    public static boolean statering = false;
     public static boolean activityVisible; // used to determine if app is in foreground
     long notifnumber, timeremaining;
     Ringtone ring;
@@ -53,20 +51,9 @@ public class MainActivity extends AppCompatActivity {
             notificationdone();
         }
     };
-    //Defining Variables
-    private Toolbar toolbar;
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private boolean action1added = false, action2added = false;
     private Handler mHandler = new Handler(); // required for progress bar
-
-    public static boolean isStatering() {
-        return statering;
-    }
-
-    public static void setStatering(boolean statering) {
-        MainActivity.statering = statering;
-    }
 
     public static boolean isActivityVisible() {
         return activityVisible;
@@ -95,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(NotifReceiver, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
 
         // Initializing Toolbar and setting it as the actionbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -106,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 //Checking if the item is in checked state or not, if not make it in checked state
-                if(menuItem.isChecked()) menuItem.setChecked(false);
+                if (menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
                 //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.drawer_settings:
                         Intent mIntent1 = new Intent(MainActivity.this, PreferenceActivity.class);
                         MainActivity.this.startActivity(mIntent1);
@@ -121,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.startActivity(mIntent2);
                         return true;
                     default:
-                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
 
                 }
@@ -129,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // Initializing Drawer Layout and ActionBarToggle
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.openDrawer, R.string.closeDrawer){
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
@@ -167,10 +154,8 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
             case R.id.action_stop_alarm:
-                if (statering) {
                     Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
                     getApplicationContext().stopService(stopIntent);
-                }
             case R.id.action_stop_timer:
                 stoptimer();
                 break;
@@ -233,11 +218,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() { // TODO: CHECK BOOLEAN PREFERENCE FOR BACKGOUND
+    protected void onResume() {
         super.onResume();
         activityResumed(); // call method to set boolean activityVisible to 'true'
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(mId); // cancel notification when app is in foreground (resumed)
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean onlybackgroundpreference = sharedPref.getBoolean("onlybackgroundpreference", true);
+        if (onlybackgroundpreference) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(mId); // cancel notification when app is in foreground (resumed)
+        }
     }
 
     @Override
@@ -258,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
             if (isActivityVisible() && onlybackgroundpreference || !displaynotification) {
             } else {
                 // Creates an explicit intent for an Activity in your app
-                Intent resultIntent = this.getIntent();
+                Intent resultIntent = getIntent();
                 resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -383,17 +372,21 @@ public class MainActivity extends AppCompatActivity {
                             intent2.putExtra("alarm-uri", alarm);
                             getApplicationContext().startService(intent2);
                         }
+                        Intent resultIntent = getIntent();
+                        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                             mBuilder2
                                     .setOngoing(false)
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
                                     .setSmallIcon(R.drawable.ic_help_black_24dp)
                                     .setContentTitle("My notification")
+                                    .setContentIntent(resultPendingIntent)
                                     .setContentText("DONEDONEDONE");
 
                             Intent notificationIntent = new Intent();
                             notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
-                            PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", resultPendingIntent).build();
+                        PendingIntent notificationtPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", notificationtPendingIntent).build();
                         if (!action2added) {
                                 mBuilder2.addAction(testaction);
                             }

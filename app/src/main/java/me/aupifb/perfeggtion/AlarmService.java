@@ -27,7 +27,6 @@ public class AlarmService extends Service {
         }
 
         ringtone.play();
-        MainActivity.statering = true;
 
         return START_NOT_STICKY;
     }
@@ -36,7 +35,6 @@ public class AlarmService extends Service {
     public void onDestroy()
     {
         ringtone.stop();
-        MainActivity.statering = false;
     }
 
 }
