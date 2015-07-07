@@ -30,40 +30,20 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Defining Variables
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
-
-    private boolean action1added = false, action2added = false;
-
-    public static boolean isStatering() {
-        return statering;
-    }
-
-    public static void setStatering(boolean statering) {
-        MainActivity.statering = statering;
-    }
-
     public static boolean statering = false;
-
+    public static boolean activityVisible; // used to determine if app is in foreground
     long notifnumber, timeremaining;
     Ringtone ring;
-
-
     int mId, mId2, mId3, mProgressStatus = 50; // id to properly update notification
     String notiftext;
     CountDownTimer timer1; // countdown timer
     int timerstate; // 0 = not running, 1 = running, 2 = paused
-    public static boolean activityVisible; // used to determine if app is in foreground
-    private Handler mHandler = new Handler(); // required for progress bar
     NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this); // required for notification
     NotificationCompat.Builder mBuilder2 =
             new NotificationCompat.Builder(this); // required for notification
     NotificationCompat.Builder mBuilder3 =
             new NotificationCompat.Builder(this); // required for notification
-
     BroadcastReceiver NotifReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -73,6 +53,32 @@ public class MainActivity extends AppCompatActivity {
             notificationdone();
         }
     };
+    //Defining Variables
+    private Toolbar toolbar;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private boolean action1added = false, action2added = false;
+    private Handler mHandler = new Handler(); // required for progress bar
+
+    public static boolean isStatering() {
+        return statering;
+    }
+
+    public static void setStatering(boolean statering) {
+        MainActivity.statering = statering;
+    }
+
+    public static boolean isActivityVisible() {
+        return activityVisible;
+    }
+
+    public static void activityResumed() {
+        activityVisible = true;
+    }
+
+    public static void activityPaused() {
+        activityVisible = false;
+    }
 
     private void cancelnotifications() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -163,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_stop_alarm:
                 if (statering) {
                     Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
-                    getApplicationContext().stopService(stopIntent);;
+                    getApplicationContext().stopService(stopIntent);
                 }
             case R.id.action_stop_timer:
                 stoptimer();
@@ -202,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stoptimer2() {
-        countdownstart(timeremaining/1000);
+        countdownstart(timeremaining / 1000);
         timerstate = 1;
     }
 
@@ -238,18 +244,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         activityPaused(); // call method to set boolean activityVisible to 'false'
-    }
-
-    public static boolean isActivityVisible() {
-        return activityVisible;
-    }
-
-    public static void activityResumed() {
-        activityVisible = true;
-    }
-
-    public static void activityPaused() {
-        activityVisible = false;
     }
 
     public void notifmethod(String notiftext, int mProgressStatus, boolean booleanongoing) {
@@ -308,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (timerstate == 1) notiftext = "Time remaining: " + textmins + textsecs;
+
 
                 mBuilder
                         .setOngoing(booleanongoing)
