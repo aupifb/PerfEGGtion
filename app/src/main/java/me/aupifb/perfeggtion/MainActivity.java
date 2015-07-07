@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
-    private boolean action1added = false;
+    private boolean action1added = false, action2added = false;
 
     public static boolean isStatering() {
         return statering;
@@ -49,13 +49,15 @@ public class MainActivity extends AppCompatActivity {
     Ringtone ring;
 
 
-    int mId, mProgressStatus = 50; // id to properly update notification
+    int mId, mId2, mProgressStatus = 50; // id to properly update notification
     String notiftext;
     CountDownTimer timer1; // countdown timer
     int timerstate; // 0 = not running, 1 = running, 2 = paused
     public static boolean activityVisible; // used to determine if app is in foreground
     private Handler mHandler = new Handler(); // required for progress bar
     NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this); // required for notification
+    NotificationCompat.Builder mBuilder2 =
             new NotificationCompat.Builder(this); // required for notification
 
     @Override
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() { // TODO: CHECK BOOLEAN PREFERENCE FOR BACKGOUND
         super.onResume();
         activityResumed(); // call method to set boolean activityVisible to 'true'
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -304,6 +306,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void countdownstart(final long countdowntime) {
         if (timerstate != 1) {
+
+            if (action1added == false) {
+                Intent notificationIntent = new Intent();
+                notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
+                PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "Stop Timer", resultPendingIntent).build();
+                mBuilder.addAction(testaction);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+                mNotificationManager.notify(mId, mBuilder.build());
+                action1added = true;
+            }
+
             timerstate = 1;
             timer1 = new CountDownTimer(countdowntime * 1000, 100) {
                 @Override
@@ -351,17 +367,25 @@ public class MainActivity extends AppCompatActivity {
                             intent2.putExtra("alarm-uri", alarm);
                             getApplicationContext().startService(intent2);
                         }
-                        if (action1added == false) {
+                        if (action2added == false) {
+                            mBuilder2
+                                    .setOngoing(false)
+                                    .setAutoCancel(true) // notification automatically dismissed when the user touches it
+                                    .setSmallIcon(R.drawable.ic_help_black_24dp)
+                                    .setContentTitle("My notification")
+                                    .setContentText("DONEDONEDONE");
+
                             Intent notificationIntent = new Intent();
                             notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                             PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", resultPendingIntent).build();
-                            mBuilder.addAction(testaction);
+                            mBuilder2.addAction(testaction);
                             NotificationManager mNotificationManager =
                                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-                            mNotificationManager.notify(mId, mBuilder.build());
-                            action1added = true;
+                            mNotificationManager.cancel(mId); // cancel notification when app is in foreground (resumed)
+                            mNotificationManager.notify(mId2, mBuilder2.build());
+                            action2added = true;
                         }
                     }
 
