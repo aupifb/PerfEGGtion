@@ -309,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (timerstate == 1) notiftext = "Time remaining: " + textmins + textsecs;
 
-
                 mBuilder
                         .setOngoing(booleanongoing)
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
