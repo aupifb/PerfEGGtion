@@ -2,8 +2,10 @@ package me.aupifb.perfeggtion;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -62,10 +64,29 @@ public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder3 =
             new NotificationCompat.Builder(this); // required for notification
 
+    BroadcastReceiver NotifReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Intent stopIntent = new Intent(context, AlarmService.class);
+            context.stopService(stopIntent);
+            cancelnotifications();
+            notificationdone();
+        }
+    };
+
+    private void cancelnotifications() {
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(mId);
+        notificationManager.cancel(mId2);
+        notificationManager.cancel(mId3);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        registerReceiver(NotifReceiver, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);

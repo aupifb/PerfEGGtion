@@ -41,15 +41,6 @@
             android:exported="true" >
         </service>
 
-        <receiver android:name="NotifReceiver">
-
-            <intent-filter>
-                <action android:name="me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE">
-                </action>
-            </intent-filter>
-
-        </receiver>
-
     </application>
 
 </manifest>
