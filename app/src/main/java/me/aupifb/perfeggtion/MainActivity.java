@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
     public void countdownstart(final long countdowntime) {
         if (timerstate != 1) {
 
-            if (action1added == false) {
+            if (!action1added) {
                 Intent notificationIntent = new Intent();
                 notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -394,7 +394,7 @@ public class MainActivity extends AppCompatActivity {
                             notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                             PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", resultPendingIntent).build();
-                            if (action2added == false) {
+                        if (!action2added) {
                                 mBuilder2.addAction(testaction);
                             }
                             NotificationManager mNotificationManager =
