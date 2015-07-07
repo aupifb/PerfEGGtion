@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Ringtone ring;
 
 
-    int mId, mId2, mProgressStatus = 50; // id to properly update notification
+    int mId, mId2, mId3, mProgressStatus = 50; // id to properly update notification
     String notiftext;
     CountDownTimer timer1; // countdown timer
     int timerstate; // 0 = not running, 1 = running, 2 = paused
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this); // required for notification
     NotificationCompat.Builder mBuilder2 =
+            new NotificationCompat.Builder(this); // required for notification
+    NotificationCompat.Builder mBuilder3 =
             new NotificationCompat.Builder(this); // required for notification
 
     @Override
@@ -347,7 +349,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onFinish() {
                     //.setContentText(getString(R.string.notifDone))  // wat zat??? int?? getString?????????
                     timerstate = 0;
-                    notifmethod(getString(R.string.notification_done), 100, false);
                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     mainActivityFragment.snackinfragment("notifdone", "doneaction");
 
@@ -367,7 +368,6 @@ public class MainActivity extends AppCompatActivity {
                             intent2.putExtra("alarm-uri", alarm);
                             getApplicationContext().startService(intent2);
                         }
-                        if (action2added == false) {
                             mBuilder2
                                     .setOngoing(false)
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
@@ -379,19 +379,43 @@ public class MainActivity extends AppCompatActivity {
                             notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                             PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", resultPendingIntent).build();
-                            mBuilder2.addAction(testaction);
+                            if (action2added == false) {
+                                mBuilder2.addAction(testaction);
+                            }
                             NotificationManager mNotificationManager =
                                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
                             mNotificationManager.cancel(mId); // cancel notification when app is in foreground (resumed)
                             mNotificationManager.notify(mId2, mBuilder2.build());
                             action2added = true;
-                        }
+                    } else {
+                        notificationdone();
                     }
 
                 }
             }.start();
         } else Log.d("lol", "timerstate == 0 ");
+    }
+
+    private void notificationdone() {
+        Intent resultIntent = this.getIntent();
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        mBuilder3
+                .setOngoing(false)
+                .setAutoCancel(true) // notification automatically dismissed when the user touches it
+                .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
+                .setContentTitle("My notification")
+                .setContentText("DONEDONEDONE");
+
+        mBuilder3
+                .setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(mId3, mBuilder3.build());
     }
 
     public void timeselectalertdialog() {
