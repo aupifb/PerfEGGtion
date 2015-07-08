@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -431,6 +432,12 @@ public class MainActivity extends AppCompatActivity {
         DialogFragment newFragment = TimeSelectDialogFragment.newInstance(
                 R.string.time_select_alert_dialog_title);
         newFragment.show(getSupportFragmentManager(), "timeselectdialogtag");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(null);
+        Log.d("lol", "onConfigurationChanged ");
     }
 
 }
