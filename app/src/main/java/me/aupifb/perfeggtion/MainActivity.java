@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         activityPaused(); // call method to set boolean activityVisible to 'false'
     }
 
-    public void notifmethod(String notiftext, int mProgressStatus, boolean booleanongoing) {
+    public void notifmethod(int mProgressStatus, boolean booleanongoing) {
         // String notiftext = String displayed in notification
         // int mProgressStatus = progress (as %) of progressbar in notification
         // boolean booleanongoing = if true notification is set ongoing
@@ -342,7 +342,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     notifnumber = millisUntilFinished;
-                    notiftext = Long.toString(notifnumber / 100);
 
                     new Thread(new Runnable() {
                         public void run() {
@@ -350,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                             mHandler.post(new Runnable() {
                                 public void run() {
                                     mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
-                                    notifmethod(notiftext, mProgressStatus, true);
+                                    notifmethod(mProgressStatus, true);
 
                                 }
                             });
