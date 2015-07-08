@@ -60,10 +60,15 @@ public class MainActivity extends AppCompatActivity {
             stoptimer();
         }
     };
-
     private DrawerLayout drawerLayout;
     private boolean action1added = false, action2added = false;
     private Handler mHandler = new Handler(); // required for progress bar
+    BroadcastReceiver BroadcastReceiver_PLAYPAUSE_TIMER = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            pausetimer();
+        }
+    };
 
     public static boolean isActivityVisible() {
         return activityVisible;
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         registerReceiver(BroadcastReceiver_STOP_ALARMSERVICE, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
         registerReceiver(BroadcastReceiver_STOP_TIMER, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_TIMER"));
+        registerReceiver(BroadcastReceiver_PLAYPAUSE_TIMER, new IntentFilter("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER"));
 
         // Initializing Toolbar and setting it as the actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -328,8 +334,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent notificationIntent = new Intent();
                 notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_TIMER");
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "Stop Timer", resultPendingIntent).build();
+                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "STOP", resultPendingIntent).build();
                 mBuilder.addAction(testaction);
+
+                Intent notificationIntent2 = new Intent();
+                notificationIntent2.setAction("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER");
+                PendingIntent resultPendingIntent2 = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent2, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "PLAY/PAUSE", resultPendingIntent2).build();
+                mBuilder.addAction(testaction2);
+
                 NotificationManager mNotificationManager =
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
