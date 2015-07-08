@@ -316,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAutoCancel(true) // notification automatically dismissed when the user touches it
                         .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
                         .setContentTitle("My notification")
+                        .setPriority(1)
                         .setContentText(notiftext);
 
                 mBuilder
@@ -407,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setSmallIcon(R.drawable.ic_help_black_24dp)
                                     .setContentTitle("My notification")
                                     .setContentIntent(resultPendingIntent)
+                                    .setPriority(2)
                                     .setContentText("DONEDONEDONE");
 
                             Intent notificationIntent = new Intent();
