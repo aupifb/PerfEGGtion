@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
             new NotificationCompat.Builder(this); // required for notification
     NotificationCompat.Builder mBuilder3 =
             new NotificationCompat.Builder(this); // required for notification
-    BroadcastReceiver NotifReceiver = new BroadcastReceiver() {
+
+    BroadcastReceiver BroadcastReceiver_STOP_ALARMSERVICE = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Intent stopIntent = new Intent(context, AlarmService.class);
@@ -52,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
             notificationdone();
         }
     };
+
+    BroadcastReceiver BroadcastReceiver_STOP_TIMER = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            stoptimer();
+        }
+    };
+
     private DrawerLayout drawerLayout;
     private boolean action1added = false, action2added = false;
     private Handler mHandler = new Handler(); // required for progress bar
@@ -80,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        registerReceiver(NotifReceiver, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
+        registerReceiver(BroadcastReceiver_STOP_ALARMSERVICE, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
+        registerReceiver(BroadcastReceiver_STOP_TIMER, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_TIMER"));
 
         // Initializing Toolbar and setting it as the actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -316,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (!action1added) {
                 Intent notificationIntent = new Intent();
-                notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
+                notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_TIMER");
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "Stop Timer", resultPendingIntent).build();
                 mBuilder.addAction(testaction);
@@ -328,11 +338,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             timerstate = 1;
-            timer1 = new CountDownTimer(countdowntime * 1000, 100) {
+            timer1 = new CountDownTimer(countdowntime * 1000, 500) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     notifnumber = millisUntilFinished;
-                    notiftext = Long.toString(notifnumber/1000);
+                    notiftext = Long.toString(notifnumber / 500);
 
                     new Thread(new Runnable() {
                         public void run() {
