@@ -39,4 +39,5 @@
     <string name="snackbar_timer_stopped">Timer stopped</string>
     <string name="snackbar_undo_timer_stopped">Undo</string>
     <string name="notif_timer_paused">Timer paused</string>
+    <string name="alert_dialog_conflict_title">Warning: timer already running</string>
 </resources>

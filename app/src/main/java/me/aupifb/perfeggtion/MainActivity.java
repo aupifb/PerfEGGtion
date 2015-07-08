@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void stoptimer() {
+    public void stoptimer() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
         timeremaining = notifnumber;
@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }.start();
-        } else Log.d("lol", "timerstate == 0 ");
+        }
     }
 
     private void notificationdone() {
@@ -453,10 +453,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void timeselectalertdialog() {
-        Log.d("lolo", "timeselectalertdialog ");
-        DialogFragment newFragment = TimeSelectDialogFragment.newInstance(
-                R.string.time_select_alert_dialog_title);
-        newFragment.show(getSupportFragmentManager(), "timeselectdialogtag");
+        if (timerstate != 0) {
+            android.app.DialogFragment newFragment3 = TimerConflictDialogFragment.newInstance(
+                    R.string.alert_dialog_conflict_title);
+            newFragment3.show(getFragmentManager(), "TimerConflictDialogFragment");
+        } else timeselectalertdialog2();
     }
 
     @Override
@@ -465,4 +466,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("lol", "onConfigurationChanged ");
     }
 
+    public void timeselectalertdialog2() {
+        DialogFragment newFragment = TimeSelectDialogFragment.newInstance(
+                R.string.time_select_alert_dialog_title);
+        newFragment.show(getSupportFragmentManager(), "timeselectdialogtag");
+    }
 }

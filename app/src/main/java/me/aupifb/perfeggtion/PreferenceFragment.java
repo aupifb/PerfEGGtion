@@ -37,7 +37,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
     public boolean onPreferenceClick(Preference preference) {
         switch (preference.getKey()){
             case "preferencebutton":
-                DialogFragment newFragment2 = ResetDialogFragment.newInstance(
+                DialogFragment newFragment2 = TimerConflictDialogFragment.newInstance(
                         R.string.alert_reset);
                 newFragment2.show(getFragmentManager(), "resetdialog");
                 return false;
