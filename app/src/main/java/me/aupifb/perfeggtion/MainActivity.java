@@ -338,11 +338,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             timerstate = 1;
-            timer1 = new CountDownTimer(countdowntime * 1000, 500) {
+            timer1 = new CountDownTimer(countdowntime * 1000, 400) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     notifnumber = millisUntilFinished;
-                    notiftext = Long.toString(notifnumber / 500);
+                    notiftext = Long.toString(notifnumber / 100);
 
                     new Thread(new Runnable() {
                         public void run() {
