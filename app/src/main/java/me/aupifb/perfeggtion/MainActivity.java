@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                         if (mins != 0) {
                             textsecs = ".";
                         } else {
-                            textsecs = "almost ready.";
+                            textsecs = "almost ready."; // not really needed anymore --> countdowninterval = 1000 now
                         }
                         break;
                     case 1:
@@ -338,7 +338,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             timerstate = 1;
-            timer1 = new CountDownTimer(countdowntime * 1000, 400) {
+            notifmethod(mProgressStatus, true);
+            timer1 = new CountDownTimer(countdowntime * 1000, 500) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     notifnumber = millisUntilFinished;
@@ -348,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                             // Update the progress bar
                             mHandler.post(new Runnable() {
                                 public void run() {
-                                    mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
+                                    mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10)) + 5;
                                     notifmethod(mProgressStatus, true);
 
                                 }
@@ -363,6 +364,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onFinish() {
                     //.setContentText(getString(R.string.notifDone))  // wat zat??? int?? getString?????????
                     timerstate = 0;
+                    mProgressStatus = 100;
+                    notifmethod(mProgressStatus, true);
                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     mainActivityFragment.snackinfragment("notifdone", "doneaction");
 
