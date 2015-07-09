@@ -1,34 +1,33 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/pref_general"
-        android:key="pref_general">
+        android:key="pref_general"
+        android:title="@string/pref_general">
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="displaynotification"
-            android:title="@string/notification"
             android:summary="@string/notificationsummary"
-            android:defaultValue="true" />
+            android:title="@string/notification" />
 
             <CheckBoxPreference
+                android:defaultValue="true"
                 android:key="onlybackgroundpreference"
-                android:title="@string/onlybackgroundpreference"
                 android:summary="@string/onlybackgroundpreferencesummary"
-                android:defaultValue="true" />
+                android:title="@string/onlybackgroundpreference" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="alarmpreference"
-            android:title="@string/playalarm"
             android:summary="@string/playalarmsummary"
-            android:defaultValue="true" />
+            android:title="@string/playalarm" />
 
             <RingtonePreference
-                android:key="ringtonepreference"
                 android:dependency="alarmpreference"
-                android:title="@string/preference_alarm_tone"
-                android:summary="@string/preference_alarm_tone_summary"
+                android:key="ringtonepreference"
                 android:ringtoneType="alarm"
                 android:showDefault="true"
-                android:showSilent="false"/>
+                android:showSilent="false"
+                android:title="@string/preference_alarm_tone" />
 
     </PreferenceCategory>
 </PreferenceScreen>

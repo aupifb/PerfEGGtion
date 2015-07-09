@@ -3,6 +3,10 @@ package me.aupifb.perfeggtion;
 
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -31,13 +35,46 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         pref_version.setSummary(BuildConfig.VERSION_NAME);
         pref_version.setOnPreferenceClickListener(this);
 
+        Preference ringtonepreference = findPreference("ringtonepreference");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String strRingtonePreference = sharedPref.getString("ringtonepreference", getString(R.string.preference_alarm_tone_summary));
+        if (strRingtonePreference.equals(getString(R.string.preference_alarm_tone_summary))) {
+            ringtonepreference.setSummary(strRingtonePreference);
+        } else {
+            Uri ringtoneUri = Uri.parse(strRingtonePreference);
+            Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), ringtoneUri);
+            String name = ringtone.getTitle(getActivity());
+            ringtonepreference.setSummary(name);
+        }
+        ringtonepreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Log.d("lol", "ringtonepreference onPreferenceChange ");
+                refreshpreferences();
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                Preference ringtonepreference = findPreference("ringtonepreference");
+                String strRingtonePreference = sharedPref.getString("ringtonepreference", getString(R.string.preference_alarm_tone_summary));
+                if (strRingtonePreference.equals(getString(R.string.preference_alarm_tone_summary))) {
+                    ringtonepreference.setSummary(strRingtonePreference);
+                } else {
+                    Uri ringtoneUri = Uri.parse(strRingtonePreference);
+                    Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), ringtoneUri);
+                    String name = ringtone.getTitle(getActivity());
+                    ringtonepreference.setSummary(name);
+                }
+                getActivity().recreate();
+                return true;
+            }
+
+        });
+
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         switch (preference.getKey()){
             case "preferencebutton":
-                DialogFragment newFragment2 = TimerConflictDialogFragment.newInstance(
+                DialogFragment newFragment2 = ResetDialogFragment.newInstance(
                         R.string.alert_reset);
                 newFragment2.show(getFragmentManager(), "resetdialog");
                 return false;
@@ -51,7 +88,6 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
             default:
                 Log.d("g", "onPreferenceClick ");
                 return true;
-
         }
     }
 
@@ -72,4 +108,15 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         pref_version.setOnPreferenceClickListener(this);
     }
 
+    private void refreshpreferences() {
+        setPreferenceScreen(null);
+        addPreferencesFromResource(R.xml.generalpreferences);
+        addPreferencesFromResource(R.xml.miscpreferences);
+        Preference preferencebutton = findPreference("preferencebutton");
+        preferencebutton.setOnPreferenceClickListener(this);
+        Preference pref_version = findPreference("pref_version");
+        pref_version.setSummary(BuildConfig.VERSION_NAME);
+        pref_version.setOnPreferenceClickListener(this);
+        Preference ringtonepreference = findPreference("ringtonepreference");
+    }
 }
