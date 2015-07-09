@@ -1,22 +1,19 @@
 package me.aupifb.perfeggtion;
 
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PreferenceActivity extends android.preference.PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class PreferenceActivity extends android.preference.PreferenceActivity {
 
     private AppCompatDelegate mDelegate;
     private Toolbar toolbar3;
@@ -38,11 +35,6 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
         getFragmentManager().beginTransaction()
                 .replace(R.id.settingscontainer, new PreferenceFragment(), "PreferenceFragmentTAG")
                 .commit();
-
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPref.registerOnSharedPreferenceChangeListener(this);
-
 
     }
 
@@ -127,13 +119,4 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
         return mDelegate;
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d("g", "onSharedPreferenceChanged");
-        if (key.equals("ringtonepreference")) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.settingscontainer, new PreferenceFragment(), "PreferenceFragmentTAG")
-                    .commit();
-        }
-    }
 }

@@ -16,7 +16,7 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PreferenceFragment extends android.preference.PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class PreferenceFragment extends android.preference.PreferenceFragment implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private int pref_easter_egg = 0;
 
@@ -37,6 +37,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
 
         Preference ringtonepreference = findPreference("ringtonepreference");
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
         String strRingtonePreference = sharedPref.getString("ringtonepreference", getString(R.string.preference_alarm_tone_summary));
         if (strRingtonePreference.equals(getString(R.string.preference_alarm_tone_summary))) {
             ringtonepreference.setSummary(strRingtonePreference);
@@ -86,4 +87,35 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         pref_version.setOnPreferenceClickListener(this);
     }
 
+    public void refreshafteralarm() {
+        setPreferenceScreen(null);
+        addPreferencesFromResource(R.xml.generalpreferences);
+        addPreferencesFromResource(R.xml.miscpreferences);
+        Preference preferencebutton = findPreference("preferencebutton");
+        preferencebutton.setOnPreferenceClickListener(this);
+        Preference pref_version = findPreference("pref_version");
+        pref_version.setSummary(BuildConfig.VERSION_NAME);
+        pref_version.setOnPreferenceClickListener(this);
+        Preference ringtonepreference = findPreference("ringtonepreference");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String strRingtonePreference = sharedPref.getString("ringtonepreference", getString(R.string.preference_alarm_tone_summary));
+        if (strRingtonePreference.equals(getString(R.string.preference_alarm_tone_summary))) {
+            ringtonepreference.setSummary(strRingtonePreference);
+        } else {
+            Uri ringtoneUri = Uri.parse(strRingtonePreference);
+            Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), ringtoneUri);
+            String name = ringtone.getTitle(getActivity());
+            ringtonepreference.setSummary(name);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d("g", "onSharedPreferenceChanged");
+        if (key.equals("ringtonepreference")) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.settingscontainer, new PreferenceFragment(), "PreferenceFragmentTAG")
+                    .commit();
+        }
+    }
 }
