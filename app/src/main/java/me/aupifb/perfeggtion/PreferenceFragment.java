@@ -111,11 +111,18 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d("g", "onSharedPreferenceChanged");
         if (key.equals("ringtonepreference")) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.settingscontainer, new PreferenceFragment(), "PreferenceFragmentTAG")
-                    .commit();
+            Preference ringtonepreference = findPreference("ringtonepreference");
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String strRingtonePreference = sharedPref.getString("ringtonepreference", getString(R.string.preference_alarm_tone_summary));
+            if (strRingtonePreference.equals(getString(R.string.preference_alarm_tone_summary))) {
+                ringtonepreference.setSummary(strRingtonePreference);
+            } else {
+                Uri ringtoneUri = Uri.parse(strRingtonePreference);
+                Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), ringtoneUri);
+                String name = ringtone.getTitle(getActivity());
+                ringtonepreference.setSummary(name);
+            }
         }
     }
 }
