@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                         .setOngoing(booleanongoing)
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
                         .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                        .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
+                        .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
                         .setContentTitle("My notification")
                         .setPriority(1)
                         .setShowWhen(false)
@@ -372,12 +372,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }).start();
 
-
                 }
 
                 @Override
                 public void onFinish() {
                     //.setContentText(getString(R.string.notifDone))  // wat zat??? int?? getString?????????
+
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
@@ -406,10 +406,11 @@ public class MainActivity extends AppCompatActivity {
                             mBuilder2
                                     .setOngoing(false)
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                                    .setSmallIcon(R.drawable.ic_help_black_24dp)
+                                    .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
                                     .setContentTitle("My notification")
                                     .setContentIntent(resultPendingIntent)
                                     .setPriority(2)
+                                    .setLights(16711680, 500, 500)
                                     .setCategory("CATEGORY_ALARM")
                                     .setContentText("DONEDONEDONE");
 
@@ -444,9 +445,10 @@ public class MainActivity extends AppCompatActivity {
         mBuilder3
                 .setOngoing(false)
                 .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
+                .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
                 .setContentTitle("My notification")
                 .setShowWhen(false)
+                .setLights(16711680, 500, 500)
                 .setContentText("DONEDONEDONE");
 
         mBuilder3

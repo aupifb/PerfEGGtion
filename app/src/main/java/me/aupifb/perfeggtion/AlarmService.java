@@ -6,10 +6,13 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.Vibrator;
 
 public class AlarmService extends Service {
 
+    Vibrator vibratordone;
     private Ringtone ringtone;
+
     @Override
     public IBinder onBind(Intent intent) {
         throw new UnsupportedOperationException("Not yet implemented");
@@ -28,6 +31,10 @@ public class AlarmService extends Service {
 
         ringtone.play();
 
+        vibratordone = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        long pattern[] = {500, 500, 500};
+        vibratordone.vibrate(pattern, 0);
+
         return START_NOT_STICKY;
     }
 
@@ -35,6 +42,7 @@ public class AlarmService extends Service {
     public void onDestroy()
     {
         ringtone.stop();
+        vibratordone.cancel();
     }
 
 }
