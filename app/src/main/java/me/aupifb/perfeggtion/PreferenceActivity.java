@@ -2,6 +2,7 @@ package me.aupifb.perfeggtion;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
@@ -119,4 +120,9 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         return mDelegate;
     }
 
+    public boolean vibratorcheck() {
+        Vibrator vibratordone = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+        boolean vibratorboolean = vibratordone.hasVibrator();
+        return vibratorboolean;
+    }
 }

@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
  */
 public class PreferenceFragment extends android.preference.PreferenceFragment implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
+    boolean hasvibratorboolean;
     private int pref_easter_egg = 0;
 
     @Override
@@ -34,6 +36,16 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         Preference pref_version = findPreference("pref_version");
         pref_version.setSummary(BuildConfig.VERSION_NAME);
         pref_version.setOnPreferenceClickListener(this);
+
+        hasvibratorboolean = ((PreferenceActivity) getActivity()).vibratorcheck();
+        if (hasvibratorboolean) {
+            Log.d("lol", "YES IT VIBRATES ");
+        } else {
+            Log.d("lol", "NO VIBRATES ");
+            PreferenceCategory pref_general = (PreferenceCategory) findPreference("pref_general");
+            Preference vibratorpreference = findPreference("vibratorpreference");
+            pref_general.removePreference(vibratorpreference);
+        }
 
         Preference ringtonepreference = findPreference("ringtonepreference");
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());

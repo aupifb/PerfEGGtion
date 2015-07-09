@@ -62,4 +62,6 @@ limitations under the License."
     Google ICONS ZOZIOBAR
         https://creativecommons.org/licenses/by/4.0/legalcode
     </string>
+    <string name="preference_vibrator_title">Vibration</string>
+    <string name="preference_vibrator_summary">Vibrate when timer finishes</string>
 </resources>
