@@ -130,5 +130,10 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d("g", "onSharedPreferenceChanged");
+        if (key.equals("ringtonepreference")) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.settingscontainer, new PreferenceFragment(), "PreferenceFragmentTAG")
+                    .commit();
+        }
     }
 }
