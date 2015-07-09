@@ -11,6 +11,7 @@
 
             <CheckBoxPreference
                 android:defaultValue="true"
+                android:dependency="displaynotification"
                 android:key="onlybackgroundpreference"
                 android:summary="@string/onlybackgroundpreferencesummary"
                 android:title="@string/onlybackgroundpreference" />

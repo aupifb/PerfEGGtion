@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent notificationIntent2 = new Intent();
                 notificationIntent2.setAction("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER");
                 PendingIntent resultPendingIntent2 = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent2, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_pause_black_24dp, "PLAY/PAUSE", resultPendingIntent2).build();
+                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_pause_black_36dp, "PLAY/PAUSE", resultPendingIntent2).build();
                 mBuilder.addAction(testaction2);
 
                 NotificationManager mNotificationManager =
@@ -410,6 +410,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setContentTitle("My notification")
                                     .setContentIntent(resultPendingIntent)
                                     .setPriority(2)
+                                    .setCategory("CATEGORY_ALARM")
                                     .setContentText("DONEDONEDONE");
 
                             Intent notificationIntent = new Intent();
