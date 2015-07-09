@@ -317,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
                         .setContentTitle("My notification")
                         .setPriority(1)
+                        .setShowWhen(false)
                         .setContentText(notiftext);
 
                 mBuilder
@@ -335,13 +336,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent notificationIntent = new Intent();
                 notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_TIMER");
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "STOP", resultPendingIntent).build();
+                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_stop_black_24dp, "STOP", resultPendingIntent).build();
                 mBuilder.addAction(testaction);
 
                 Intent notificationIntent2 = new Intent();
                 notificationIntent2.setAction("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER");
                 PendingIntent resultPendingIntent2 = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent2, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_timer_black_24dp, "PLAY/PAUSE", resultPendingIntent2).build();
+                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_pause_black_24dp, "PLAY/PAUSE", resultPendingIntent2).build();
                 mBuilder.addAction(testaction2);
 
                 NotificationManager mNotificationManager =
@@ -444,6 +445,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true) // notification automatically dismissed when the user touches it
                 .setSmallIcon(R.drawable.ic_ic_add_alert_black_48dp)
                 .setContentTitle("My notification")
+                .setShowWhen(false)
                 .setContentText("DONEDONEDONE");
 
         mBuilder3
