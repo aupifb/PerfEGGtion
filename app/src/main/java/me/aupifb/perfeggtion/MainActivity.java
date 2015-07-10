@@ -386,6 +386,7 @@ public class MainActivity extends AppCompatActivity {
 
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     boolean playalarm = sharedPref.getBoolean("alarmpreference", true);
+                    boolean vibrate = sharedPref.getBoolean("vibratorpreference", false);
                     String alarm = sharedPref.getString("ringtonepreference", "null");
                     Uri alarmuri = Uri.parse(alarm);
                     ring = RingtoneManager.getRingtone(getApplicationContext(), alarmuri);
