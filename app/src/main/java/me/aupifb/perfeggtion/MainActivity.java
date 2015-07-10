@@ -391,16 +391,11 @@ public class MainActivity extends AppCompatActivity {
                     Uri alarmuri = Uri.parse(alarm);
                     ring = RingtoneManager.getRingtone(getApplicationContext(), alarmuri);
                     if (playalarm) {
-                        if (ring == null || alarm.equals("null")) {
+                        Log.d("lol", "ring ");
                             Intent intent = new Intent(getApplicationContext(), AlarmService.class);
                             intent.putExtra("alarm-uri", alarm);
                             getApplicationContext().startService(intent);
-                        }
-                        else {
-                            Intent intent2 = new Intent(getApplicationContext(), AlarmService.class);
-                            intent2.putExtra("alarm-uri", alarm);
-                            getApplicationContext().startService(intent2);
-                        }
+
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -420,14 +415,14 @@ public class MainActivity extends AppCompatActivity {
                         PendingIntent notificationtPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", notificationtPendingIntent).build();
                         if (!action2added) {
-                                mBuilder2.addAction(testaction);
-                            }
-                            NotificationManager mNotificationManager =
-                                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-                            mNotificationManager.cancel(mId);
-                            mNotificationManager.notify(mId2, mBuilder2.build());
-                            action2added = true;
+                            mBuilder2.addAction(testaction);
+                        }
+                        NotificationManager mNotificationManager =
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        // mId allows you to update the notification later on.
+                        mNotificationManager.cancel(mId);
+                        mNotificationManager.notify(mId2, mBuilder2.build());
+                        action2added = true;
                     } else {
                         notificationdone();
                     }
