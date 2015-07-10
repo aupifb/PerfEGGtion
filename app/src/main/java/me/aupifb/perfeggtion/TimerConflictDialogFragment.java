@@ -30,6 +30,7 @@ public class TimerConflictDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ((MainActivity) getActivity()).stoptimer();
+                        ((MainActivity) getActivity()).stopalarm();
                         ((MainActivity) getActivity()).timeselectalertdialog2();
                     }
                 })

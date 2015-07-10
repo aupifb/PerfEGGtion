@@ -65,5 +65,5 @@ limitations under the License."
     <string name="preference_vibrator_title">Vibration</string>
     <string name="preference_vibrator_summary">Vibrate when timer finishes</string>
     <string name="preference_led_title">LED</string>
-    <string name="preference_led_summary">Light up LED when timer finishes</string>
+    <string name="preference_led_summary">Flash LED when timer finishes</string>
 </resources>

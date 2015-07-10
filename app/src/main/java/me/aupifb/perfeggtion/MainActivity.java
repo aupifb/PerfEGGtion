@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
             case R.id.action_stop_alarm:
-                    Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
-                    getApplicationContext().stopService(stopIntent);
+                Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
+                getApplicationContext().stopService(stopIntent);
             case R.id.action_stop_timer:
                 stoptimer();
                 break;
@@ -331,6 +331,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void countdownstart(final long countdowntime) {
         if (timerstate != 1) {
+            Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
+            getApplicationContext().stopService(stopIntent);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(mId);
 
             if (!action1added) {
                 Intent notificationIntent = new Intent();
@@ -486,5 +490,10 @@ public class MainActivity extends AppCompatActivity {
         DialogFragment newFragment = TimeSelectDialogFragment.newInstance(
                 R.string.time_select_alert_dialog_title);
         newFragment.show(getSupportFragmentManager(), "timeselectdialogtag");
+    }
+
+    public void stopalarm() {
+        Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
+        getApplicationContext().stopService(stopIntent);
     }
 }
