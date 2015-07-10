@@ -32,7 +32,6 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:dependency="alarmpreference"
             android:key="vibratorpreference"
             android:summary="@string/preference_vibrator_summary"
             android:title="@string/preference_vibrator_title" />

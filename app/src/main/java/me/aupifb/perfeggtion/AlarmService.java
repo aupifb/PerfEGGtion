@@ -13,6 +13,7 @@ public class AlarmService extends Service {
 
     Vibrator vibratordone;
     boolean vibrationActive = true;
+    Boolean vibrate, playalarm;
     private Ringtone ringtone;
     private Handler mHandler = new Handler(); // required for progress bar
 
@@ -25,29 +26,35 @@ public class AlarmService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         Uri alarmuri = Uri.parse(intent.getExtras().getString("alarm-uri"));
+        vibrate = intent.getBooleanExtra("vibrate-boolean", false);
+        playalarm = intent.getBooleanExtra("alarm-boolean", false);
 
-        ringtone = RingtoneManager.getRingtone(this, alarmuri);
-        String alarm = intent.getExtras().getString("alarm-uri");
-        if (ringtone == null || alarm.equals("null")) {
-            ringtone = RingtoneManager.getRingtone(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+        if (playalarm) {
+            ringtone = RingtoneManager.getRingtone(this, alarmuri);
+            String alarm = intent.getExtras().getString("alarm-uri");
+            if (ringtone == null || alarm.equals("null")) {
+                ringtone = RingtoneManager.getRingtone(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            }
+
+            ringtone.play();
         }
 
-        ringtone.play();
-
-        vibratordone = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (vibrationActive) {
-                    try {
-                        vibratordone.vibrate(400);
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (vibrate) {
+            vibratordone = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (vibrationActive) {
+                        try {
+                            vibratordone.vibrate(400);
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        }).start();
+            }).start();
+        }
 
         return START_NOT_STICKY;
     }
@@ -55,9 +62,11 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy()
     {
-        ringtone.stop();
-        vibratordone.cancel();
-        vibrationActive = false;
+        if (playalarm) ringtone.stop();
+        if (vibrate) {
+            vibratordone.cancel();
+            vibrationActive = false;
+        }
     }
 
 }

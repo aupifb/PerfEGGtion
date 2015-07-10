@@ -390,15 +390,19 @@ public class MainActivity extends AppCompatActivity {
                     String alarm = sharedPref.getString("ringtonepreference", "null");
                     Uri alarmuri = Uri.parse(alarm);
                     ring = RingtoneManager.getRingtone(getApplicationContext(), alarmuri);
-                    if (playalarm) {
+                    if (playalarm || vibrate) {
                         Log.d("lol", "ring ");
                             Intent intent = new Intent(getApplicationContext(), AlarmService.class);
                             intent.putExtra("alarm-uri", alarm);
+                        intent.putExtra("vibrate-boolean", vibrate);
+                        intent.putExtra("alarm-boolean", playalarm);
                             getApplicationContext().startService(intent);
 
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        int lightscolor = sharedPref.getInt("preference_color", 0xFFA4C639);
+                        boolean led = sharedPref.getBoolean("ledpreference", true);
                             mBuilder2
                                     .setOngoing(false)
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
@@ -406,10 +410,12 @@ public class MainActivity extends AppCompatActivity {
                                     .setContentTitle("My notification")
                                     .setContentIntent(resultPendingIntent)
                                     .setPriority(2)
-                                    .setLights(16711680, 500, 500)
                                     .setCategory("CATEGORY_ALARM")
                                     .setContentText("DONEDONEDONE");
 
+                        if (led) {
+                            mBuilder2.setLights(lightscolor, 500, 500);
+                        }
                             Intent notificationIntent = new Intent();
                             notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                         PendingIntent notificationtPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -437,6 +443,9 @@ public class MainActivity extends AppCompatActivity {
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int lightscolor = sharedPref.getInt("preference_color", 0xFFA4C639);
+        boolean led = sharedPref.getBoolean("ledpreference", true);
 
         mBuilder3
                 .setOngoing(false)
@@ -444,8 +453,12 @@ public class MainActivity extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
                 .setContentTitle("My notification")
                 .setShowWhen(false)
-                .setLights(16711680, 500, 500)
                 .setContentText("DONEDONEDONE");
+
+        if (led) {
+            Log.d("lol", "LED LED LED ");
+            mBuilder2.setLights(lightscolor, 500, 500);
+        }
 
         mBuilder3
                 .setContentIntent(resultPendingIntent);
