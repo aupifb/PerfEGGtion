@@ -34,27 +34,6 @@ public class AlarmService extends Service {
 
         ringtone.play();
 
-        /*vibratordone = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        new Thread(new Runnable() {
-        public void run() {
-            // Update the progress bar
-            mHandler.post(new Runnable() {
-                public void run() {
-                    while (vibrationActive) {
-                        try {
-                            vibratordone.vibrate(500);
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Log.d("lol", "no sleep!!!! ");
-                        }
-                    }
-
-                }
-            });
-        }
-    }).start();*/
-
         vibratordone = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         new Thread(new Runnable() {
             @Override
@@ -69,9 +48,6 @@ public class AlarmService extends Service {
                 }
             }
         }).start();
-
-        /*long pattern[] = {500, 500, 500};
-        vibratordone.vibrate(pattern, 0);*/
 
         return START_NOT_STICKY;
     }
