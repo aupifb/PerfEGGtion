@@ -8,11 +8,10 @@
     <ProgressBar
         android:id="@+id/circleprogress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="89dp"
-        android:layout_height="89dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="bottom|left"
         android:max="100"
-        android:progress="40"
         android:progressDrawable="@drawable/circular" />
 
         <Button

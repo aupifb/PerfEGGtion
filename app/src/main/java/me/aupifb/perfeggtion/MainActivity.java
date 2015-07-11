@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
                             // Update the progress bar
                             mHandler.post(new Runnable() {
                                 public void run() {
-                                    mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10)) + 5;
+                                    mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
                                     notifmethod(mProgressStatus, true);
 
                                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
@@ -390,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
                     notifmethod(mProgressStatus, true);
                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     mainActivityFragment.snackinfragment("notifdone", "doneaction");
+                    mainActivityFragment.circleprogress(mProgressStatus);
 
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     boolean playalarm = sharedPref.getBoolean("alarmpreference", true);
