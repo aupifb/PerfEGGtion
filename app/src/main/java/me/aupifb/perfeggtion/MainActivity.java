@@ -31,6 +31,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public static boolean activityVisible; // used to determine if app is in foreground
+    boolean waspaused;
+    long totaltime1, totaltime2;
     long notifnumber, timeremaining;
     Ringtone ring;
     int mId, mId2, mId3, mProgressStatus = 50; // id to properly update notification
@@ -188,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
     public void stoptimer() {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
+        waspaused = false;
         timeremaining = notifnumber;
         switch(timerstate) {
             case 0:
@@ -228,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
             mBuilder.setContentText(getString(R.string.notif_timer_paused));
             notificationManager.notify(mId, mBuilder.build());
         } else if (timerstate == 2){
+            totaltime2 = totaltime1;
             countdownstart(timeremaining/1000);
             timerstate = 1;
         }
@@ -330,12 +334,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void countdownstart(final long countdowntime) {
+
+        totaltime1 = countdowntime;
+
         if (timerstate != 1) {
             Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
             getApplicationContext().stopService(stopIntent);
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancel(mId);
 
+            if (timerstate == 2) {
+                waspaused = true;
+            }
             if (!action1added) {
                 Intent notificationIntent = new Intent();
                 notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_TIMER");
@@ -368,7 +378,14 @@ public class MainActivity extends AppCompatActivity {
                             // Update the progress bar
                             mHandler.post(new Runnable() {
                                 public void run() {
-                                    mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
+                                    if (waspaused == false) {
+                                        mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
+                                        Log.d("lol", "waspaused == false ");
+                                    } else {
+                                        mProgressStatus = (int) (100 - millisUntilFinished / (totaltime2 * 10));
+                                        Log.d("lol", "waspaused == true ");
+                                    }
+
                                     notifmethod(mProgressStatus, true);
 
                                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
@@ -385,6 +402,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFinish() {
                     //.setContentText(getString(R.string.notifDone))  // wat zat??? int?? getString?????????
 
+                    waspaused = false;
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
