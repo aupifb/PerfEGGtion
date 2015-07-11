@@ -311,7 +311,12 @@ public class MainActivity extends AppCompatActivity {
                         break;  }
 
 
-                if (timerstate == 1) notiftext = "Time remaining: " + textmins + textsecs;
+                if (timerstate == 1) {
+                    notiftext = "Time remaining: " + textmins + textsecs;
+                    MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
+                    String textviewtext = "Time remaining:\n" + textmins + textsecs;
+                    mainActivityFragment.settextviewtext(textviewtext);
+                }
 
 
                 mBuilder
@@ -380,10 +385,8 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     if (waspaused == false) {
                                         mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
-                                        Log.d("lol", "waspaused == false ");
                                     } else {
                                         mProgressStatus = (int) (100 - millisUntilFinished / (totaltime2 * 10));
-                                        Log.d("lol", "waspaused == true ");
                                     }
 
                                     notifmethod(mProgressStatus, true);
@@ -417,7 +420,6 @@ public class MainActivity extends AppCompatActivity {
                     Uri alarmuri = Uri.parse(alarm);
                     ring = RingtoneManager.getRingtone(getApplicationContext(), alarmuri);
                     if (playalarm || vibrate) {
-                        Log.d("lol", "ring ");
                             Intent intent = new Intent(getApplicationContext(), AlarmService.class);
                             intent.putExtra("alarm-uri", alarm);
                         intent.putExtra("vibrate-boolean", vibrate);
@@ -482,7 +484,6 @@ public class MainActivity extends AppCompatActivity {
                 .setContentText("DONEDONEDONE");
 
         if (led) {
-            Log.d("lol", "LED LED LED ");
             mBuilder2.setLights(lightscolor, 500, 500);
         }
 

@@ -7,8 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,8 +20,8 @@ import butterknife.OnClick;
  */
 public class MainActivityFragment extends Fragment implements View.OnClickListener {
 
-    @Bind(R.id.button1) Button button1;
-    @Bind(R.id.buttontimeselect) Button buttontimeselect;
+    @Bind(R.id.mTextField)
+    TextView mTextField;
     @Bind(R.id.fabAlarm) android.support.design.widget.FloatingActionButton fabAlarm;
     @Bind(R.id.circleprogress)
     ProgressBar circleprogress;
@@ -40,27 +40,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         return(view);
-    }
-
-    @OnClick(R.id.button1)
-    public void dothis() {
-        ((MainActivity)getActivity()).countdownstart(8);
-
-    }
-
-    @OnClick(R.id.buttontimeselect)
-    public void dothis3() {
-        // Not needed anymore as CoordinatorLayout = getView()?
-        // CoordinatorLayout rootLayout = (CoordinatorLayout) getActivity().findViewById(R.id.content_frame);
-        // Snackbar.make(rootLayout, "it works", Snackbar.LENGTH_LONG)
-        Snackbar.make(getView(), "it works", Snackbar.LENGTH_LONG)
-                .setAction("Action", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("lol", "ha");
-                    }
-                })
-                .show();
     }
 
     @OnClick(R.id.fabAlarm)
@@ -109,5 +88,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     public void circleprogress(int mProgressStatus) {
         circleprogress.setProgress(mProgressStatus);
+    }
+
+    public void settextviewtext(String textviewtext) {
+        mTextField.setText(textviewtext);
     }
 }
