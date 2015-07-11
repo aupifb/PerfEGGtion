@@ -2,14 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:background="?attr/colorPrimaryDark"
+    android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Light"
-    android:gravity="bottom">
+    android:theme="@style/ThemeOverlay.AppCompat.Light">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="192dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/snacktest"/>
+        android:src="@drawable/perfeggtion" />
 
 </LinearLayout>
