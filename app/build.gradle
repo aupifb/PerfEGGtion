@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.commonsware.cwac:colormixer:0.6.+'
+    compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
 }
