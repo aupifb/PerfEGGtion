@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean activityVisible; // used to determine if app is in foreground
     boolean waspaused;
-    long totaltime1, totaltime2;
+    long totaltime1, totaltime2 = 0;
     long notifnumber, timeremaining;
     Ringtone ring;
     int mId, mId2, mId3, mProgressStatus = 50; // id to properly update notification
@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
         waspaused = false;
+        totaltime2 = 0;
         timeremaining = notifnumber;
         switch(timerstate) {
             case 0:
@@ -231,7 +232,9 @@ public class MainActivity extends AppCompatActivity {
             mBuilder.setContentText(getString(R.string.notif_timer_paused));
             notificationManager.notify(mId, mBuilder.build());
         } else if (timerstate == 2){
-            totaltime2 = totaltime1;
+            if (totaltime2 == 0) {
+                totaltime2 = totaltime1;
+            }
             countdownstart(timeremaining/1000);
             timerstate = 1;
         }
@@ -406,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
                     //.setContentText(getString(R.string.notifDone))  // wat zat??? int?? getString?????????
 
                     waspaused = false;
+                    totaltime2 = 0;
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
