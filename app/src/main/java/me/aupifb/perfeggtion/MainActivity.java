@@ -371,6 +371,9 @@ public class MainActivity extends AppCompatActivity {
                                     mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10)) + 5;
                                     notifmethod(mProgressStatus, true);
 
+                                    MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
+                                    mainActivityFragment.circleprogress(mProgressStatus);
+
                                 }
                             });
                         }

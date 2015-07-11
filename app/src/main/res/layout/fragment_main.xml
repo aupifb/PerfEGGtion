@@ -1,24 +1,33 @@
-<android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
+
+    <ProgressBar
+        android:id="@+id/circleprogress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="89dp"
+        android:layout_height="89dp"
+        android:layout_gravity="bottom|left"
+        android:max="100"
+        android:progress="40"
+        android:progressDrawable="@drawable/circular" />
 
         <Button
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button1"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="New Button" />
 
     <Button
+        android:id="@+id/buttontimeselect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
-        android:id="@+id/buttontimeselect"
-        android:layout_gravity="left" />
+        android:layout_gravity="left"
+        android:text="Time" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAlarm"

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +23,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Bind(R.id.button1) Button button1;
     @Bind(R.id.buttontimeselect) Button buttontimeselect;
     @Bind(R.id.fabAlarm) android.support.design.widget.FloatingActionButton fabAlarm;
+    @Bind(R.id.circleprogress)
+    ProgressBar circleprogress;
 
     public MainActivityFragment() {
     }
@@ -102,5 +105,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                     }
                 })
                 .show();
+    }
+
+    public void circleprogress(int mProgressStatus) {
+        circleprogress.setProgress(mProgressStatus);
     }
 }
