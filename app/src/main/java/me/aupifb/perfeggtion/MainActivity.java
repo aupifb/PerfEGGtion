@@ -175,12 +175,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_stop_alarm:
                 Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
                 getApplicationContext().stopService(stopIntent);
-            case R.id.action_stop_timer:
-                stoptimer();
-                break;
-            case R.id.action_pause_play_timer:
-                pausetimer();
-                break;
             default:
                 break;
         }
@@ -193,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
         waspaused = false;
         totaltime2 = 0;
         timeremaining = notifnumber;
+        mainActivityFragment.circleprogress(0);
+        mainActivityFragment.setmTextField("Timer stopped");
         switch(timerstate) {
             case 0:
                 break;
@@ -223,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void pausetimer() {
+    public void pausetimer() {
         if (timerstate == 1) {
             timeremaining = notifnumber;
             timer1.cancel();
@@ -231,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder.setContentText(getString(R.string.notif_timer_paused));
             notificationManager.notify(mId, mBuilder.build());
+            MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
+            mainActivityFragment.snackstoppausedtimerinfragment();
         } else if (timerstate == 2){
             if (totaltime2 == 0) {
                 totaltime2 = totaltime1;
@@ -309,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                         if (mins != 0) {
                             textsecs = " and " + secs +" second.";
                         } else {
-                            textsecs = secs + " seconds.";
+                            textsecs = secs + " second.";
                         }
                         break;  }
 

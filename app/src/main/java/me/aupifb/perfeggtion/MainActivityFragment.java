@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +26,10 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Bind(R.id.fabAlarm) android.support.design.widget.FloatingActionButton fabAlarm;
     @Bind(R.id.circleprogress)
     ProgressBar circleprogress;
+    @Bind(R.id.buttonstop)
+    ImageButton buttonstop;
+    @Bind(R.id.buttonpause)
+    ImageButton buttonpause;
 
     public MainActivityFragment() {
     }
@@ -45,7 +50,16 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @OnClick(R.id.fabAlarm)
     public void dothis2() {
         ((MainActivity)getActivity()).timeselectalertdialog();
+    }
 
+    @OnClick(R.id.buttonstop)
+    public void dothis3() {
+        ((MainActivity) getActivity()).stoptimer();
+    }
+
+    @OnClick(R.id.buttonpause)
+    public void dothis4() {
+        ((MainActivity) getActivity()).pausetimer();
     }
 
     @Override
@@ -76,11 +90,11 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
 
     public void snackstoppausedtimerinfragment() {
-        Snackbar.make(getView(), R.string.snackbar_timer_stopped, Snackbar.LENGTH_LONG)
-                .setAction(R.string.snackbar_undo_timer_stopped, new View.OnClickListener() {
+        Snackbar.make(getView(), R.string.snackbar_timer_paused, Snackbar.LENGTH_LONG)
+                .setAction(R.string.snackbar_undo_timer_paused, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((MainActivity)getActivity()).stoptimer3();
+                        ((MainActivity) getActivity()).pausetimer();
                     }
                 })
                 .show();
@@ -92,5 +106,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     public void settextviewtext(String textviewtext) {
         mTextField.setText(textviewtext);
+    }
+
+    public void setmTextField(String text) {
+        mTextField.setText(text);
     }
 }

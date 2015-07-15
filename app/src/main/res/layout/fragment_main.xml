@@ -21,6 +21,23 @@
         android:layout_gravity="center"
         android:lines="2" />
 
+    <ImageButton
+        android:id="@+id/buttonstop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:background="@android:color/transparent"
+        android:paddingBottom="80dp"
+        android:src="@drawable/ic_stop_black_48dp" />
+
+    <ImageButton
+        android:id="@+id/buttonpause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:background="@android:color/transparent"
+        android:paddingBottom="80dp"
+        android:src="@drawable/ic_pause_black_48dp" />
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAlarm"
@@ -30,5 +47,6 @@
             android:src="@drawable/ic_add_alarm_white_24dp"
             app:fabSize="normal" />
 
-    </android.support.design.widget.CoordinatorLayout>
+
+</android.support.design.widget.CoordinatorLayout>
 
