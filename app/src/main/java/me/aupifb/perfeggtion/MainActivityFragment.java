@@ -30,6 +30,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     ImageButton buttonstop;
     @Bind(R.id.buttonpause)
     ImageButton buttonpause;
+    @Bind(R.id.buttonalarm)
+    ImageButton buttonalarm;
 
     public MainActivityFragment() {
     }
@@ -62,6 +64,11 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         ((MainActivity) getActivity()).pausetimer();
     }
 
+    @OnClick(R.id.buttonalarm)
+    public void dothis5() {
+        ((MainActivity) getActivity()).stopalarm();
+    }
+
     @Override
     public void onClick(View view) {
     }
@@ -79,12 +86,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     public void snackstoptimerinfragment() {
         Snackbar.make(getView(), R.string.snackbar_timer_stopped, Snackbar.LENGTH_LONG)
-                .setAction(R.string.snackbar_undo_timer_stopped, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((MainActivity)getActivity()).stoptimer2();
-                    }
-                })
                 .show();
     }
 
@@ -110,5 +111,11 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     public void setmTextField(String text) {
         mTextField.setText(text);
+    }
+
+    public void showbuttonalarm() {
+        buttonalarm.setVisibility(View.VISIBLE
+
+        );
     }
 }

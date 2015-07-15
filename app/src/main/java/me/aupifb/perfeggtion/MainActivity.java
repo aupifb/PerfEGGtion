@@ -172,9 +172,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()) {
-            case R.id.action_stop_alarm:
-                Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
-                getApplicationContext().stopService(stopIntent);
             default:
                 break;
         }
@@ -207,16 +204,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-    }
-
-    public void stoptimer2() {
-        countdownstart(timeremaining / 1000);
-        timerstate = 1;
-    }
-
-    public void stoptimer3() {
-        timerstate = 2;
-
     }
 
     public void pausetimer() {
@@ -427,6 +414,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("vibrate-boolean", vibrate);
                         intent.putExtra("alarm-boolean", playalarm);
                             getApplicationContext().startService(intent);
+
+                        mainActivityFragment.showbuttonalarm();
 
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
