@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     long totaltime1, totaltime2 = 0;
     long notifnumber, timeremaining;
     Ringtone ring;
+    ViewPager pager;
+    FragmentStatePagerAdapter a;
     int mId, mId2, mId3, mProgressStatus = 50; // id to properly update notification
     String notiftext;
     CountDownTimer timer1; // countdown timer
@@ -106,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
         // Initializing Toolbar and setting it as the actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pager = (ViewPager) findViewById(R.id.pager);
+        a = (FragmentStatePagerAdapter) pager.getAdapter();
 
         //Initializing NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -209,8 +215,9 @@ public class MainActivity extends AppCompatActivity {
         waspaused = false;
         totaltime2 = 0;
         timeremaining = notifnumber;
-        mainActivityFragment.circleprogress(0);
-        mainActivityFragment.setmTextField("Timer stopped");
+        mainActivityFragment.testmethod();
+        //mainActivityFragment.circleprogress(0);
+        //mainActivityFragment.setmTextField("Timer stopped");
         switch(timerstate) {
             case 0:
                 break;
@@ -232,6 +239,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pausetimer() {
+        Log.d("lol", "inactivty");
+        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                "android:switcher:" + R.id.pager + ":0");
+        if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+        {
+            if (mainActivityFragment2.getView() != null) {
+                // no need to call if fragment's onDestroyView()
+                //has since been called.
+                mainActivityFragment2.testmethod(); // do what updates are required
+            }
+        }
+
         if (timerstate == 1) {
             timeremaining = notifnumber;
             timer1.cancel();

@@ -62,6 +62,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @OnClick(R.id.buttonpause)
     public void dothis4() {
         ((MainActivity) getActivity()).pausetimer();
+        Log.d("lol", "infragment");
     }
 
     @OnClick(R.id.buttonalarm)
@@ -117,5 +118,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         buttonalarm.setVisibility(View.VISIBLE
 
         );
+    }
+
+    public void testmethod() {
+        Log.d("lol", "testmethod ");
     }
 }
