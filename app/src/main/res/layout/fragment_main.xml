@@ -10,8 +10,9 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal|top"
         android:max="100"
+        android:paddingTop="25dp"
         android:progressDrawable="@drawable/circular" />
 
     <TextView
@@ -19,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:lines="2" />
+        android:lines="2"
+        android:paddingBottom="25dp" />
 
     <ImageButton
         android:id="@+id/buttonstop"
@@ -34,7 +36,7 @@
         android:id="@+id/buttonpause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|right"
         android:background="@android:color/transparent"
         android:paddingBottom="110dp"
         android:src="@drawable/ic_pause_black_48dp" />
@@ -45,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@android:color/transparent"
-        android:paddingTop="110dp"
+        android:paddingTop="90dp"
         android:src="@drawable/ic_pause_black_48dp"
         android:visibility="invisible" />
 

@@ -163,8 +163,8 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Timer"));
+        tabLayout.addTab(tabLayout.newTab().setText("Presets"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -382,15 +382,11 @@ public class MainActivity extends AppCompatActivity {
                     notiftext = "Time remaining: " + textmins + textsecs;
                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     String textviewtext = "Time remaining:\n" + textmins + textsecs;
-                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
-                            "android:switcher:" + R.id.pager + ":0");
-                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+
+                    if (pager.getCurrentItem() == 0)
                     {
-                        if (mainActivityFragment2.getView() != null) {
-                            // no need to call if fragment's onDestroyView()
-                            //has since been called.
-                            mainActivityFragment2.settextviewtext(textviewtext); // do what updates are required
-                        }
+                        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+                        mainActivityFragment2.settextviewtext(textviewtext);
                     }
                 }
 
@@ -467,17 +463,14 @@ public class MainActivity extends AppCompatActivity {
 
                                     notifmethod(mProgressStatus, true);
 
-                                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
-                                            "android:switcher:" + R.id.pager + ":0");
-                                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+
+                                    if (pager.getCurrentItem() == 0)
                                     {
-                                        if (mainActivityFragment2.getView() != null) {
-                                            // no need to call if fragment's onDestroyView()
-                                            //has since been called.
-                                            mainActivityFragment2.circleprogress(mProgressStatus); // do what updates are required
-                                        }
+                                        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+                                        mainActivityFragment2.circleprogress(mProgressStatus);
                                     }
                                 }
+
                             });
                         }
                     }).start();
@@ -518,15 +511,12 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("alarm-boolean", playalarm);
                             getApplicationContext().startService(intent);
 
-                        MainActivityFragment mainActivityFragment3 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
-                                "android:switcher:" + R.id.pager + ":0");
-                        if (mainActivityFragment3 != null)  // could be null if not instantiated yet
+                        if (pager.getCurrentItem() == 0)
                         {
-                            if (mainActivityFragment3.getView() != null) {
-                                // no need to call if fragment's onDestroyView()
-                                //has since been called.
-                                mainActivityFragment3.circleprogress(mProgressStatus);
-                            }
+                            MainActivityFragment mainActivityFragment3 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+                            mainActivityFragment3.circleprogress(mProgressStatus);
+                            mainActivityFragment3.showbuttonalarm();
+                            mainActivityFragment3.settextviewtext(getString(R.string.timer_done));
                         }
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

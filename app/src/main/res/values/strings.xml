@@ -68,4 +68,5 @@ limitations under the License."
     <string name="preference_led_summary">Flash LED when timer finishes</string>
     <string name="snackbar_timer_paused">Timer paused</string>
     <string name="snackbar_undo_timer_paused">Resume</string>
+    <string name="timer_done">DONEDONE</string>
 </resources>

@@ -115,7 +115,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     }
 
     public void showbuttonalarm() {
-        //buttonalarm.setVisibility(View.VISIBLE);
+        buttonalarm.setVisibility(View.VISIBLE);
     }
 
     public void testmethod() {
