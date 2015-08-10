@@ -26,7 +26,7 @@ public class TimerConflictDialogFragment extends DialogFragment {
         int title = getArguments().getInt("title");
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Stop currently running timer in order to start a new one").setTitle(title)
+        builder.setMessage(R.string.timer_conflict).setTitle(title)
                 .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         ((MainActivity) getActivity()).stoptimer();
