@@ -215,9 +215,17 @@ public class MainActivity extends AppCompatActivity {
         waspaused = false;
         totaltime2 = 0;
         timeremaining = notifnumber;
-        mainActivityFragment.testmethod();
-        //mainActivityFragment.circleprogress(0);
-        //mainActivityFragment.setmTextField("Timer stopped");
+        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                "android:switcher:" + R.id.pager + ":0");
+        if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+        {
+            if (mainActivityFragment2.getView() != null) {
+                // no need to call if fragment's onDestroyView()
+                //has since been called.
+                mainActivityFragment2.circleprogress(0);
+                mainActivityFragment2.setmTextField("Timer stopped"); // do what updates are required
+            }
+        }
         switch(timerstate) {
             case 0:
                 break;
@@ -225,13 +233,32 @@ public class MainActivity extends AppCompatActivity {
                 timer1.cancel();
                 timerstate = 0;
                 notificationManager.cancel(mId);
-                mainActivityFragment.snackstoptimerinfragment();
+
+                MainActivityFragment mainActivityFragment3 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                        "android:switcher:" + R.id.pager + ":0");
+                if (mainActivityFragment3 != null)  // could be null if not instantiated yet
+                {
+                    if (mainActivityFragment3.getView() != null) {
+                        // no need to call if fragment's onDestroyView()
+                        //has since been called.
+                        mainActivityFragment3.snackstoptimerinfragment();
+                    }
+                }
                 break;
             case 2:
                 timer1.cancel();
                 timerstate = 0;
                 notificationManager.cancel(mId);
-                mainActivityFragment.snackstoppausedtimerinfragment();
+                MainActivityFragment mainActivityFragment4 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                        "android:switcher:" + R.id.pager + ":0");
+                if (mainActivityFragment4 != null)  // could be null if not instantiated yet
+                {
+                    if (mainActivityFragment4.getView() != null) {
+                        // no need to call if fragment's onDestroyView()
+                        //has since been called.
+                        mainActivityFragment4.snackstoppausedtimerinfragment();
+                    }
+                }
                 break;
             default:
                 break;
@@ -258,8 +285,16 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder.setContentText(getString(R.string.notif_timer_paused));
             notificationManager.notify(mId, mBuilder.build());
-            MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
-            mainActivityFragment.snackstoppausedtimerinfragment();
+            MainActivityFragment mainActivityFragment5 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                    "android:switcher:" + R.id.pager + ":0");
+            if (mainActivityFragment5 != null)  // could be null if not instantiated yet
+            {
+                if (mainActivityFragment5.getView() != null) {
+                    // no need to call if fragment's onDestroyView()
+                    //has since been called.
+                    mainActivityFragment5.snackstoppausedtimerinfragment(); // do what updates are required
+                }
+            }
         } else if (timerstate == 2){
             if (totaltime2 == 0) {
                 totaltime2 = totaltime1;
@@ -347,7 +382,16 @@ public class MainActivity extends AppCompatActivity {
                     notiftext = "Time remaining: " + textmins + textsecs;
                     MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     String textviewtext = "Time remaining:\n" + textmins + textsecs;
-                    mainActivityFragment.settextviewtext(textviewtext);
+                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                            "android:switcher:" + R.id.pager + ":0");
+                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+                    {
+                        if (mainActivityFragment2.getView() != null) {
+                            // no need to call if fragment's onDestroyView()
+                            //has since been called.
+                            mainActivityFragment2.settextviewtext(textviewtext); // do what updates are required
+                        }
+                    }
                 }
 
 
@@ -423,9 +467,16 @@ public class MainActivity extends AppCompatActivity {
 
                                     notifmethod(mProgressStatus, true);
 
-                                    MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
-                                    mainActivityFragment.circleprogress(mProgressStatus);
-
+                                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                                            "android:switcher:" + R.id.pager + ":0");
+                                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+                                    {
+                                        if (mainActivityFragment2.getView() != null) {
+                                            // no need to call if fragment's onDestroyView()
+                                            //has since been called.
+                                            mainActivityFragment2.circleprogress(mProgressStatus); // do what updates are required
+                                        }
+                                    }
                                 }
                             });
                         }
@@ -442,9 +493,17 @@ public class MainActivity extends AppCompatActivity {
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
-                    MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
-                    mainActivityFragment.snackinfragment("notifdone", "doneaction");
-                    mainActivityFragment.circleprogress(mProgressStatus);
+                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                            "android:switcher:" + R.id.pager + ":0");
+                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
+                    {
+                        if (mainActivityFragment2.getView() != null) {
+                            // no need to call if fragment's onDestroyView()
+                            //has since been called.
+                            mainActivityFragment2.snackinfragment("notifdone", "doneaction");
+                            mainActivityFragment2.circleprogress(mProgressStatus);
+                        }
+                    }
 
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     boolean playalarm = sharedPref.getBoolean("alarmpreference", true);
@@ -459,8 +518,16 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("alarm-boolean", playalarm);
                             getApplicationContext().startService(intent);
 
-                        mainActivityFragment.showbuttonalarm();
-
+                        MainActivityFragment mainActivityFragment3 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
+                                "android:switcher:" + R.id.pager + ":0");
+                        if (mainActivityFragment3 != null)  // could be null if not instantiated yet
+                        {
+                            if (mainActivityFragment3.getView() != null) {
+                                // no need to call if fragment's onDestroyView()
+                                //has since been called.
+                                mainActivityFragment3.circleprogress(mProgressStatus);
+                            }
+                        }
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
