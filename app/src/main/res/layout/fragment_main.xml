@@ -27,18 +27,20 @@
         android:id="@+id/buttonstop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="center"
         android:background="@android:color/transparent"
-        android:paddingBottom="110dp"
+        android:paddingRight="90dp"
+        android:paddingTop="60dp"
         android:src="@drawable/ic_stop_black_48dp" />
 
     <ImageButton
         android:id="@+id/buttonpause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="center"
         android:background="@android:color/transparent"
-        android:paddingBottom="110dp"
+        android:paddingLeft="90dp"
+        android:paddingTop="60dp"
         android:src="@drawable/ic_pause_black_48dp" />
 
     <ImageButton
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:src="@drawable/ic_add_alarm_white_24dp"
+        app:elevation="6dp"
             app:fabSize="normal" />
 
 
