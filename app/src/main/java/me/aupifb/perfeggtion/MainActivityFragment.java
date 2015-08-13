@@ -55,7 +55,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     }
 
     @OnClick(R.id.buttonstop)
-    public void dothis3() {
+    public void dothis6() {
         ((MainActivity) getActivity()).stoptimer();
     }
 

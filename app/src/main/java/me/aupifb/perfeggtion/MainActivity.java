@@ -380,7 +380,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (timerstate == 1) {
                     notiftext = "Time remaining: " + textmins + textsecs;
-                    MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
                     String textviewtext = "Time remaining:\n" + textmins + textsecs;
 
                     if (pager.getCurrentItem() == 0)
