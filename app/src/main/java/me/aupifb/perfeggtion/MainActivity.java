@@ -332,63 +332,63 @@ public class MainActivity extends AppCompatActivity {
         boolean displaynotification = sharedPref.getBoolean("displaynotification", true);
         boolean onlybackgroundpreference = sharedPref.getBoolean("onlybackgroundpreference", true);
 
+        String textsecs, textmins;
+
+        int mins = (int) (notifnumber / 60000);
+        int secs = (int) (notifnumber / 1000 - mins * 60);
+
+        switch (mins) {
+            default:
+                textmins = mins + " minutes";
+                break;
+            case 0:
+                textmins = "";
+                break;
+            case 1:
+                textmins = mins + " minute";
+                break;
+        }
+        switch (secs) {
+            default:
+                if (mins != 0) {
+                    textsecs = " and " + secs + " seconds.";
+                } else {
+                    textsecs = secs + " seconds.";
+                }
+                break;
+            case 0:
+                if (mins != 0) {
+                    textsecs = ".";
+                } else {
+                    textsecs = "almost ready."; // not really needed anymore --> countdowninterval = 1000 now
+                }
+                break;
+            case 1:
+                if (mins != 0) {
+                    textsecs = " and " + secs + " second.";
+                } else {
+                    textsecs = secs + " second.";
+                }
+                break;
+        }
+
+
+        if (timerstate == 1) {
+            notiftext = "Time remaining: " + textmins + textsecs;
+            String textviewtext = "Time remaining:\n" + textmins + textsecs;
+
+            if (pager.getCurrentItem() == 0) {
+                MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+                mainActivityFragment2.settextviewtext(textviewtext);
+            }
+        }
+        
             if (isActivityVisible() && onlybackgroundpreference || !displaynotification) {
             } else {
                 // Creates an explicit intent for an Activity in your app
                 Intent resultIntent = getIntent();
                 resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                String textsecs, textmins;
-
-                int mins = (int) (notifnumber/60000);
-                int secs = (int) (notifnumber/1000-mins*60);
-
-                switch(mins) {
-                    default:
-                        textmins = mins + " minutes";
-                        break;
-                    case 0:
-                        textmins = "";
-                        break;
-                    case 1:
-                        textmins = mins + " minute";
-                        break;  }
-                switch(secs) {
-                    default:
-                        if (mins != 0) {
-                            textsecs = " and " + secs + " seconds.";
-                        } else {
-                            textsecs = secs + " seconds.";
-                        }
-                        break;
-                    case 0:
-                        if (mins != 0) {
-                            textsecs = ".";
-                        } else {
-                            textsecs = "almost ready."; // not really needed anymore --> countdowninterval = 1000 now
-                        }
-                        break;
-                    case 1:
-                        if (mins != 0) {
-                            textsecs = " and " + secs +" second.";
-                        } else {
-                            textsecs = secs + " second.";
-                        }
-                        break;  }
-
-
-                if (timerstate == 1) {
-                    notiftext = "Time remaining: " + textmins + textsecs;
-                    String textviewtext = "Time remaining:\n" + textmins + textsecs;
-
-                    if (pager.getCurrentItem() == 0)
-                    {
-                        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-                        mainActivityFragment2.settextviewtext(textviewtext);
-                    }
-                }
-
 
                 mBuilder
                         .setOngoing(booleanongoing)
