@@ -215,17 +215,7 @@ public class MainActivity extends AppCompatActivity {
         waspaused = false;
         totaltime2 = 0;
         timeremaining = notifnumber;
-        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
-                "android:switcher:" + R.id.pager + ":0");
-        if (mainActivityFragment2 != null)  // could be null if not instantiated yet
-        {
-            if (mainActivityFragment2.getView() != null) {
-                // no need to call if fragment's onDestroyView()
-                //has since been called.
-                mainActivityFragment2.circleprogress(0);
-                mainActivityFragment2.setmTextField("Timer stopped"); // do what updates are required
-            }
-        }
+
         switch(timerstate) {
             case 0:
                 break;
@@ -242,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
                         // no need to call if fragment's onDestroyView()
                         //has since been called.
                         mainActivityFragment3.snackstoptimerinfragment();
+                        mainActivityFragment3.circleprogress(0);
+                        mainActivityFragment3.setmTextField("Timer stopped");
                     }
                 }
                 break;
@@ -257,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
                         // no need to call if fragment's onDestroyView()
                         //has since been called.
                         mainActivityFragment4.snackstoptimerinfragment();
+                        mainActivityFragment4.circleprogress(0);
+                        mainActivityFragment4.setmTextField("Timer stopped");
                     }
                 }
                 break;
@@ -484,16 +478,12 @@ public class MainActivity extends AppCompatActivity {
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
-                    MainActivityFragment mainActivityFragment2 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
-                            "android:switcher:" + R.id.pager + ":0");
-                    if (mainActivityFragment2 != null)  // could be null if not instantiated yet
-                    {
-                        if (mainActivityFragment2.getView() != null) {
-                            // no need to call if fragment's onDestroyView()
-                            //has since been called.
-                            mainActivityFragment2.snackinfragment("notifdone", "doneaction");
-                            mainActivityFragment2.circleprogress(mProgressStatus);
-                        }
+                    if (pager.getCurrentItem() == 0) {
+                        MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+                        mainActivityFragment2.snackinfragment("notifdone", "doneaction");
+                        mainActivityFragment2.circleprogress(mProgressStatus);
+                        mainActivityFragment2.showbuttonalarm();
+                        mainActivityFragment2.setmTextField("Eggs are ready!");
                     }
 
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -509,16 +499,9 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("alarm-boolean", playalarm);
                             getApplicationContext().startService(intent);
 
-                        if (pager.getCurrentItem() == 0)
-                        {
-                            MainActivityFragment mainActivityFragment3 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-                            mainActivityFragment3.circleprogress(mProgressStatus);
-                            mainActivityFragment3.showbuttonalarm();
-                            mainActivityFragment3.settextviewtext(getString(R.string.timer_done));
-                        }
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         int lightscolor = sharedPref.getInt("preference_color", 0xFFA4C639);
                         boolean led = sharedPref.getBoolean("ledpreference", true);
                             mBuilder2
@@ -526,8 +509,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
                                     .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
                                     .setContentTitle("My notification")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setPriority(2)
+                                    .setFullScreenIntent(fullScreenPendingIntent, true)
                                     .setCategory("CATEGORY_ALARM")
                                     .setContentText("DONEDONEDONE");
 
