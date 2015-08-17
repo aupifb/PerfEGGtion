@@ -43,8 +43,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         setRetainInstance(true);
 
         ButterKnife.bind(this, view);
-        //Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         return(view);
     }

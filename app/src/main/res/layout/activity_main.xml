@@ -13,7 +13,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#85a6ff"
+            android:background="@color/primary"
             android:fitsSystemWindows="true"
             android:minHeight="?attr/actionBarSize" />
 
@@ -21,7 +21,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#85a6ff" />
+            android:background="@color/primary" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"

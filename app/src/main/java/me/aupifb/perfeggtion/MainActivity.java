@@ -508,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setOngoing(false)
                                     .setAutoCancel(true) // notification automatically dismissed when the user touches it
                                     .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
-                                    .setContentTitle("My notification")
+                                    .setContentTitle("PerfEGGtion")
                                     .setFullScreenIntent(fullScreenPendingIntent, true)
                                     .setCategory("CATEGORY_ALARM")
                                     .setContentText("DONEDONEDONE");
