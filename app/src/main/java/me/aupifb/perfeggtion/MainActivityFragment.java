@@ -91,7 +91,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     }
 
 
-    public void snackstoppausedtimerinfragment() {
+    public void snackpausetimerinfragment() {
         Snackbar.make(getView(), R.string.snackbar_timer_paused, Snackbar.LENGTH_LONG)
                 .setAction(R.string.snackbar_undo_timer_paused, new View.OnClickListener() {
                     @Override

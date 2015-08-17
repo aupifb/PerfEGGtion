@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                     if (mainActivityFragment4.getView() != null) {
                         // no need to call if fragment's onDestroyView()
                         //has since been called.
-                        mainActivityFragment4.snackstoppausedtimerinfragment();
+                        mainActivityFragment4.snackstoptimerinfragment();
                     }
                 }
                 break;
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mainActivityFragment5.getView() != null) {
                     // no need to call if fragment's onDestroyView()
                     //has since been called.
-                    mainActivityFragment5.snackstoppausedtimerinfragment(); // do what updates are required
+                    mainActivityFragment5.snackpausetimerinfragment(); // do what updates are required
                 }
             }
         } else if (timerstate == 2){
@@ -302,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
             countdownstart(timeremaining/1000);
             timerstate = 1;
         }
-
     }
 
     @Override
