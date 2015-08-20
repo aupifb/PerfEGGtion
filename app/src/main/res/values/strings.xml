@@ -69,4 +69,5 @@ limitations under the License."
     <string name="snackbar_timer_paused">Timer paused</string>
     <string name="snackbar_undo_timer_paused">Resume</string>
     <string name="timer_conflict">Stop currently running timer in order to start a new one?</string>
+    <string name="notif_title">PerfEGGtion</string>
 </resources>

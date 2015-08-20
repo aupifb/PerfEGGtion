@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
                         .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
                         .setAutoCancel(true) // notification automatically dismissed when the user touches it
                         .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
-                        .setContentTitle("My notification")
+                        .setContentTitle(getString(R.string.notif_title))
                         .setPriority(1)
                         .setShowWhen(false)
                         .setContentText(notiftext);
@@ -551,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOngoing(false)
                 .setAutoCancel(true) // notification automatically dismissed when the user touches it
                 .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
-                .setContentTitle("My notification")
+                .setContentTitle(getString(R.string.notif_title))
                 .setShowWhen(false)
                 .setContentText("DONEDONEDONE");
 

@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:src="@drawable/ic_add_alarm_white_24dp"
+        app:backgroundTint="@color/accent"
         app:fabSize="normal" />
 
 

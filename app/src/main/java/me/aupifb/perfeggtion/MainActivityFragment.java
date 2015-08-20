@@ -80,6 +80,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                         Log.d("lol", "snackmethodinfragment");
                     }
                 })
+                .setActionTextColor(16717848)
                 .show();
     }
 
