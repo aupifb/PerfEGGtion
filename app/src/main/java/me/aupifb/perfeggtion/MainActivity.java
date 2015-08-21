@@ -409,8 +409,8 @@ public class MainActivity extends AppCompatActivity {
         if (timerstate != 1) {
             Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
             getApplicationContext().stopService(stopIntent);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(mId);
+            //NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            //notificationManager.cancel(mId);
 
             if (timerstate == 2) {
                 waspaused = true;
