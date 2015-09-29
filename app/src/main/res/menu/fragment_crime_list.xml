@@ -8,5 +8,10 @@
         android:title="add"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/menu_item_refresh"
+        android:icon="@drawable/ic_help_black_24dp"
+        android:title="add"
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

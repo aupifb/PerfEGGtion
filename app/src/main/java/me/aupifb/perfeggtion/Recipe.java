@@ -1,13 +1,9 @@
 package me.aupifb.perfeggtion;
 
-import java.util.UUID;
+import com.orm.SugarRecord;
 
-/**
- * Created by aupifb on 28/09/2015.
- */
-public class Recipe {
+public class Recipe extends SugarRecord {
 
-    private UUID mId;
     private String mTitle;
     private int mDurationSec;
 
@@ -18,14 +14,6 @@ public class Recipe {
     public Recipe(String title, int durationSec) {
         mTitle = title;
         mDurationSec = durationSec;
-    }
-
-    public UUID getId() {
-        return mId;
-    }
-
-    public void setId(UUID id) {
-        mId = id;
     }
 
     public String getTitle() {

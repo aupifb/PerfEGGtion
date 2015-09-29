@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by aupifb on 28/09/2015.
@@ -13,7 +12,7 @@ public class RecipeKitchen {
 
     private static RecipeKitchen sRecipeKitchen;
 
-    private ArrayList<Recipe> mRecipes;
+    private List<Recipe> mRecipes;
 
     private RecipeKitchen(Context context) {
         mRecipes = new ArrayList<>();
@@ -27,14 +26,19 @@ public class RecipeKitchen {
     }
 
     public void addRecipe(Recipe r) {
+        r.save();
         mRecipes.add(r);
+    }
+
+    public void updateRecipes() {
+        mRecipes = Recipe.listAll(Recipe.class);
     }
 
     public List<Recipe> getRecipes() {
         return mRecipes;
     }
 
-    public Recipe getRecipe(UUID id) {
+    public Recipe getRecipe(long id) {
         for (Recipe recipe : mRecipes) {
             if (recipe.getId().equals(id)) {
                 return recipe;

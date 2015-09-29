@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        RecipeKitchen.get(getContext()).updateRecipes();
     }
 
     @Override
@@ -55,8 +57,6 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
         mRecipeRecyclerView = (RecyclerView) view2
                 .findViewById(R.id.recipe_recycler_view);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        updateUI();
 
         return (view2);
     }
@@ -78,7 +78,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_crime:
-                Recipe recipe = new Recipe("hi", 10);
+                Recipe recipe = new Recipe("ha", 20);
                 RecipeKitchen.get(getActivity()).addRecipe(recipe);
                 //Intent intent = CrimePagerActivity
                 //.newIntent(getActivity(), crime.getId());
@@ -86,6 +86,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
                 updateUI();
                 return true;
             default:
+                updateUI();
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -137,6 +138,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
         public void onClick(View v) {
             //Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             //startActivity(intent);
+            Toast.makeText(getActivity(), mRecipe.getId().toString(), Toast.LENGTH_SHORT).show();
             ((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
         }
     }
