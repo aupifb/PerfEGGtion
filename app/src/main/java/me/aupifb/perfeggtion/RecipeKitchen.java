@@ -19,7 +19,7 @@ public class RecipeKitchen {
         mRecipes = new ArrayList<>();
     }
 
-    private static RecipeKitchen get(Context context) {
+    public static RecipeKitchen get(Context context) {
         if (sRecipeKitchen == null) {
             sRecipeKitchen = new RecipeKitchen(context);
         }
