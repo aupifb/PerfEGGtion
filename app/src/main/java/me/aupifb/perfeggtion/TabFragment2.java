@@ -137,6 +137,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
         public void onClick(View v) {
             //Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             //startActivity(intent);
+            ((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
         }
     }
 
