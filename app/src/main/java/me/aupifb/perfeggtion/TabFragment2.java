@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -65,6 +68,29 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
         updateUI();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_new_crime:
+                Recipe recipe = new Recipe("hi", 10);
+                RecipeKitchen.get(getActivity()).addRecipe(recipe);
+                //Intent intent = CrimePagerActivity
+                //.newIntent(getActivity(), crime.getId());
+                //startActivity(intent);
+                updateUI();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     private void updateUI() {
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipes();
@@ -103,7 +129,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mDateTextView.setText(mRecipe.getDurationSec());
+            mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
             mSolvedCheckBox.setChecked(true);
         }
 
