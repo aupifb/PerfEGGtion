@@ -2,6 +2,7 @@ package me.aupifb.perfeggtion;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,7 +81,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
             case R.id.menu_item_new_crime:
                 Recipe recipe = new Recipe("ha", 20);
                 RecipeKitchen.get(getActivity()).addRecipe(recipe);
-                //Intent intent = CrimePagerActivity
+                //Intent intent = RecipePagerActivity
                 //.newIntent(getActivity(), crime.getId());
                 //startActivity(intent);
                 updateUI();
@@ -136,10 +137,12 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
 
         @Override
         public void onClick(View v) {
-            //Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            //Intent intent = RecipePagerActivity.newIntent(getActivity(), mCrime.getId());
             //startActivity(intent);
+            Intent intent = RecipePagerActivity.newIntent(getActivity(), mRecipe.getId());
+            startActivity(intent);
             Toast.makeText(getActivity(), mRecipe.getId().toString(), Toast.LENGTH_SHORT).show();
-            ((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
+            //((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
         }
     }
 

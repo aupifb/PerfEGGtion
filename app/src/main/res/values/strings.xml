@@ -70,4 +70,7 @@ limitations under the License."
     <string name="snackbar_undo_timer_paused">Resume</string>
     <string name="timer_conflict">Stop currently running timer in order to start a new one?</string>
     <string name="notif_title">PerfEGGtion</string>
+    <string name="recipe_title_label">recipetitlelable</string>
+    <string name="recipe_title_hint">recipehint</string>
+    <string name="recipe_details_label">recipedetails</string>
 </resources>
