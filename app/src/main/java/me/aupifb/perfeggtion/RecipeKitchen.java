@@ -1,7 +1,9 @@
 package me.aupifb.perfeggtion;
 
 import android.content.Context;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,10 @@ public class RecipeKitchen {
 
     private List<Recipe> mRecipes;
 
+    private Context mContext;
+
     private RecipeKitchen(Context context) {
+        mContext = context.getApplicationContext();
         mRecipes = new ArrayList<>();
     }
 
@@ -50,6 +55,17 @@ public class RecipeKitchen {
             }
         }
         return null;
+    }
+
+    public File getPhotoFile(Recipe recipe) {
+        File externalFilesDir = mContext
+                .getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null) {
+            return null;
+        }
+
+        return new File(externalFilesDir, recipe.getPhotoFilename());
     }
 
 

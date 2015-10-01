@@ -31,4 +31,8 @@ public class Recipe extends SugarRecord {
     public void setDurationSec(int durationSec) {
         mDurationSec = durationSec;
     }
+
+    public String getPhotoFilename() {
+        return "IMG_" + getId().toString() + ".jpg";
+    }
 }
