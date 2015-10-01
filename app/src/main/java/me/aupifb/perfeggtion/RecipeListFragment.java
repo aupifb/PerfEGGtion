@@ -3,6 +3,7 @@ package me.aupifb.perfeggtion;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -30,6 +33,10 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     private static final String DIALOG_NEW_RECIPE = "DialogNewRecipe";
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
+
+
+    private File mPhotoFile;
+    private ImageView mPhotoViewList;
 
     /*@Bind(R.id.alacoque)
     ImageButton alacoque;*/
@@ -133,6 +140,8 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
 
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
 
+            mPhotoViewList = (ImageView) itemView.findViewById(R.id.recipe_photo_list);
+
             mStartButton = (Button) itemView.findViewById(R.id.button_start);
             mStartButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,6 +157,14 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mRecipe = recipe;
             mTitleTextView.setText(mRecipe.getTitle());
             mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
+            mPhotoFile = RecipeKitchen.get(getActivity()).getPhotoFile(mRecipe);
+            if (mPhotoFile == null || !mPhotoFile.exists()) {
+                mPhotoViewList.setImageDrawable(null);
+            } else {
+                Bitmap bitmap = PictureUtils.getScaledBitmap(
+                        mPhotoFile.getPath(), getActivity());
+                mPhotoViewList.setImageBitmap(bitmap);
+            }
         }
 
         @Override
