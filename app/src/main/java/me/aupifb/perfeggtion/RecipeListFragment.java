@@ -138,6 +138,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
                 @Override
                 public void onClick(View v) {
                     ((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
+                    ((MainActivity) getActivity()).setCurrentMainViewPagerItem(0);
                 }
             });
 

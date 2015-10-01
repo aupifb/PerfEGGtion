@@ -37,11 +37,27 @@ public class NewRecipeDialog extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String recipeTitle = editText_title.getText().toString();
-                                int recipeDuration = Integer.parseInt(editText_duration.getText().toString());
-                                Recipe mRecipe = new Recipe(recipeTitle, recipeDuration);
-                                RecipeKitchen.get(getContext()).addRecipe(mRecipe);
+                                int recipeDuration;
+                                if (recipeTitle.length() > 0 && editText_duration.length() > 0) {
+                                    recipeDuration = Integer.parseInt(editText_duration.getText().toString());
+                                    Recipe mRecipe = new Recipe(recipeTitle, recipeDuration);
+                                    RecipeKitchen.get(getContext()).addRecipe(mRecipe);
+                                } else {
+                                    if (recipeTitle.length() == 0) {
+                                        editText_title.setHint("Please enter a title");
+                                    }
+                                    if (editText_duration.length() < 1) {
+                                        editText_duration.setHint("Please enter a value");
+                                    }
+                                }
                             }
                         })
+                .setNegativeButton(R.string.alert_dialog_cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        }
+                )
                 .create();
     }
 

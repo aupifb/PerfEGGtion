@@ -591,4 +591,9 @@ public class MainActivity extends AppCompatActivity {
         Intent stopIntent = new Intent(getApplicationContext(), AlarmService.class);
         getApplicationContext().stopService(stopIntent);
     }
+
+    public void setCurrentMainViewPagerItem(int position) {
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setCurrentItem(position);
+    }
 }
