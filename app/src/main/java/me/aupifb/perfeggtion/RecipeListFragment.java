@@ -4,6 +4,7 @@ package me.aupifb.perfeggtion;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +25,9 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabFragment2 extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class RecipeListFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    private static final String DIALOG_NEW_RECIPE = "DialogNewRecipe";
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
 
@@ -33,7 +35,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
     ImageButton alacoque;*/
 
 
-    public TabFragment2() {
+    public RecipeListFragment() {
         // Required empty public constructor
     }
 
@@ -79,8 +81,12 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_crime:
-                Recipe recipe = new Recipe("ha", 20);
-                RecipeKitchen.get(getActivity()).addRecipe(recipe);
+                FragmentManager manager = getFragmentManager();
+                NewRecipeDialog dialog = NewRecipeDialog
+                        .newInstance();
+                dialog.show(manager, DIALOG_NEW_RECIPE);
+                //Recipe recipe = new Recipe("ha", 20);
+                //RecipeKitchen.get(getActivity()).addRecipe(recipe);
                 //Intent intent = RecipePagerActivity
                 //.newIntent(getActivity(), crime.getId());
                 //startActivity(intent);
@@ -115,7 +121,7 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private CheckBox mSolvedCheckBox;
+        private Button mStartButton;
 
         private Recipe mRecipe;
 
@@ -124,25 +130,30 @@ public class TabFragment2 extends android.support.v4.app.Fragment implements Vie
             itemView.setOnClickListener(this);
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
+
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
-            mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
+
+            mStartButton = (Button) itemView.findViewById(R.id.button_start);
+            mStartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
+                }
+            });
+
         }
 
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
             mTitleTextView.setText(mRecipe.getTitle());
             mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
-            mSolvedCheckBox.setChecked(true);
         }
 
         @Override
         public void onClick(View v) {
-            //Intent intent = RecipePagerActivity.newIntent(getActivity(), mCrime.getId());
-            //startActivity(intent);
             Intent intent = RecipePagerActivity.newIntent(getActivity(), mRecipe.getId());
             startActivity(intent);
             Toast.makeText(getActivity(), mRecipe.getId().toString(), Toast.LENGTH_SHORT).show();
-            //((MainActivity) getActivity()).countdownstart(mRecipe.getDurationSec());
         }
     }
 

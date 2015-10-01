@@ -30,6 +30,11 @@ public class RecipeKitchen {
         mRecipes.add(r);
     }
 
+    public void deleteRecipe(Recipe r) {
+        mRecipes.remove(r);
+        r.delete();
+    }
+
     public void updateRecipes() {
         mRecipes = Recipe.listAll(Recipe.class);
     }

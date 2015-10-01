@@ -23,7 +23,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 MainActivityFragment tab1 = new MainActivityFragment();
                 return tab1;
             case 1:
-                TabFragment2 tab2 = new TabFragment2();
+                RecipeListFragment tab2 = new RecipeListFragment();
                 return tab2;
             default:
                 return null;

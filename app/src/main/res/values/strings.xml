@@ -73,4 +73,5 @@ limitations under the License."
     <string name="recipe_title_label">recipetitlelable</string>
     <string name="recipe_title_hint">recipehint</string>
     <string name="recipe_details_label">recipedetails</string>
+    <string name="new_recipe_dialog_title">New recipe</string>
 </resources>
