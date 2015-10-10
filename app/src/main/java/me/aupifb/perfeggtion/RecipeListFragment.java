@@ -186,7 +186,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         @Override
         public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.list_item_crime, parent, false);
+            View view = layoutInflater.inflate(R.layout.list_item_recipe, parent, false);
             return new RecipeHolder(view);
         }
 

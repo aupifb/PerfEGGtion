@@ -63,7 +63,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        switch (preference.getKey()){
+        switch (preference.getKey()) {
             case "preferencebutton":
                 DialogFragment newFragment2 = ResetDialogFragment.newInstance(
                         R.string.alert_reset);
@@ -82,7 +82,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment im
         }
     }
 
-    public void resetprefs(){
+    public void resetprefs() {
         PreferenceManager
                 .getDefaultSharedPreferences(getActivity())
                 .edit()

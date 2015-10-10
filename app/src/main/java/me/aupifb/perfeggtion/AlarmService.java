@@ -23,8 +23,7 @@ public class AlarmService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         Uri alarmuri = Uri.parse(intent.getExtras().getString("alarm-uri"));
         vibrate = intent.getBooleanExtra("vibrate-boolean", false);
         playalarm = intent.getBooleanExtra("alarm-boolean", false);
@@ -60,8 +59,7 @@ public class AlarmService extends Service {
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         if (playalarm) ringtone.stop();
         if (vibrate) {
             vibratordone.cancel();

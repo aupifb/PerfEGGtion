@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center_horizontal">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="horizontal">
 
     <TextView
-        android:singleLine="true"
-        android:layout_gravity="center_vertical"
+        android:id="@+id/textviewtimeMINS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textviewtimeMINS"
-        android:id="@+id/textviewtimeMINS"
-        android:paddingRight="20dp" />
+        android:layout_gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:singleLine="true"
+        android:text="@string/textviewtimeMINS"/>
 
     <NumberPicker
+        android:id="@+id/alertnumberpickerMIN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/alertnumberpickerMIN"
-        android:focusable="true" />
+        android:focusable="true"/>
 
     <Space
         android:layout_width="50dp"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <NumberPicker
+        android:id="@+id/alertnumberpickerSEC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/alertnumberpickerSEC"
-        android:focusable="true" />
+        android:focusable="true"/>
 
     <TextView
-        android:singleLine="true"
-        android:layout_gravity="center_vertical"
+        android:id="@+id/textviewtimeSECS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textviewtimeSECS"
-        android:id="@+id/textviewtimeSECS"
-        android:paddingLeft="20dp" />
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:text="@string/textviewtimeSECS"/>
 
 </LinearLayout>

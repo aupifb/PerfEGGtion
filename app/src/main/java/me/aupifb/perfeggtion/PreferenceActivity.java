@@ -44,7 +44,7 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -54,65 +54,80 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
     }
+
     public ActionBar getSupportActionBar() {
         return getDelegate().getSupportActionBar();
     }
+
     public void setSupportActionBar(@Nullable Toolbar toolbar) {
         getDelegate().setSupportActionBar(toolbar);
     }
+
     @Override
     public MenuInflater getMenuInflater() {
         return getDelegate().getMenuInflater();
     }
+
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         getDelegate().setContentView(layoutResID);
     }
+
     @Override
     public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().setContentView(view, params);
     }
+
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().addContentView(view, params);
     }
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
         getDelegate().onPostResume();
     }
+
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
         super.onTitleChanged(title, color);
         getDelegate().setTitle(title);
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         getDelegate().onConfigurationChanged(newConfig);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         getDelegate().onStop();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         getDelegate().onDestroy();
     }
+
     public void invalidateOptionsMenu() {
         getDelegate().invalidateOptionsMenu();
     }
+
     private AppCompatDelegate getDelegate() {
         if (mDelegate == null) {
             mDelegate = AppCompatDelegate.create(this, null);
@@ -122,7 +137,6 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
 
     public boolean vibratorcheck() {
         Vibrator vibratordone = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-        boolean vibratorboolean = vibratordone.hasVibrator();
-        return vibratorboolean;
+        return vibratordone.hasVibrator();
     }
 }

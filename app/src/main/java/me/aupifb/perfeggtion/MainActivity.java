@@ -31,6 +31,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 public class MainActivity extends AppCompatActivity {
 
     public static boolean activityVisible; // used to determine if app is in foreground
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cancelnotifications() {
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(mId);
         notificationManager.cancel(mId2);
         notificationManager.cancel(mId3);
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Fresco.initialize(this);
 
         registerReceiver(BroadcastReceiver_STOP_ALARMSERVICE, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE"));
         registerReceiver(BroadcastReceiver_STOP_TIMER, new IntentFilter("me.aupifb.perfeggtion.ACTION_STOP_TIMER"));
@@ -151,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
                 super.onDrawerClosed(drawerView);
             }
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
@@ -202,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             default:
                 break;
         }
@@ -210,13 +215,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stoptimer() {
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         MainActivityFragment mainActivityFragment = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag("mainfragmenttag");
         waspaused = false;
         totaltime2 = 0;
         timeremaining = notifnumber;
 
-        switch(timerstate) {
+        switch (timerstate) {
             case 0:
                 break;
             case 1:
@@ -276,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             timeremaining = notifnumber;
             timer1.cancel();
             timerstate = 2;
-            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder.setContentText(getString(R.string.notif_timer_paused));
             notificationManager.notify(mId, mBuilder.build());
             MainActivityFragment mainActivityFragment5 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
@@ -289,11 +294,11 @@ public class MainActivity extends AppCompatActivity {
                     mainActivityFragment5.snackpausetimerinfragment(); // do what updates are required
                 }
             }
-        } else if (timerstate == 2){
+        } else if (timerstate == 2) {
             if (totaltime2 == 0) {
                 totaltime2 = totaltime1;
             }
-            countdownstart(timeremaining/1000);
+            countdownstart(timeremaining / 1000);
             timerstate = 1;
         }
     }
@@ -375,31 +380,31 @@ public class MainActivity extends AppCompatActivity {
                 mainActivityFragment2.settextviewtext(textviewtext);
             }
         }
-        
-            if (isActivityVisible() && onlybackgroundpreference || !displaynotification) {
-            } else {
-                // Creates an explicit intent for an Activity in your app
-                Intent resultIntent = getIntent();
-                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                mBuilder
-                        .setOngoing(booleanongoing)
-                        .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
-                        .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                        .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
-                        .setContentTitle(getString(R.string.notif_title))
-                        .setPriority(1)
-                        .setShowWhen(false)
-                        .setContentText(notiftext);
+        if (isActivityVisible() && onlybackgroundpreference || !displaynotification) {
+        } else {
+            // Creates an explicit intent for an Activity in your app
+            Intent resultIntent = getIntent();
+            resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                mBuilder
-                        .setContentIntent(resultPendingIntent);
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder
+                    .setOngoing(booleanongoing)
+                    .setProgress(100, mProgressStatus, false) //max (100 so progress can be set as %), progress (%), determinate?
+                    .setAutoCancel(true) // notification automatically dismissed when the user touches it
+                    .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
+                    .setContentTitle(getString(R.string.notif_title))
+                    .setPriority(1)
+                    .setShowWhen(false)
+                    .setContentText(notiftext);
+
+            mBuilder
+                    .setContentIntent(resultPendingIntent);
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-                mNotificationManager.notify(mId, mBuilder.build());
-            }
+            mNotificationManager.notify(mId, mBuilder.build());
+        }
     }
 
     public void countdownstart(final long countdowntime) {
@@ -447,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
                             // Update the progress bar
                             mHandler.post(new Runnable() {
                                 public void run() {
-                                    if (waspaused == false) {
+                                    if (!waspaused) {
                                         mProgressStatus = (int) (100 - millisUntilFinished / (countdowntime * 10));
                                     } else {
                                         mProgressStatus = (int) (100 - millisUntilFinished / (totaltime2 * 10));
@@ -456,8 +461,7 @@ public class MainActivity extends AppCompatActivity {
                                     notifmethod(mProgressStatus, true);
 
 
-                                    if (pager.getCurrentItem() == 0)
-                                    {
+                                    if (pager.getCurrentItem() == 0) {
                                         MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
                                         mainActivityFragment2.circleprogress(mProgressStatus);
                                     }
@@ -493,31 +497,31 @@ public class MainActivity extends AppCompatActivity {
                     Uri alarmuri = Uri.parse(alarm);
                     ring = RingtoneManager.getRingtone(getApplicationContext(), alarmuri);
                     if (playalarm || vibrate) {
-                            Intent intent = new Intent(getApplicationContext(), AlarmService.class);
-                            intent.putExtra("alarm-uri", alarm);
+                        Intent intent = new Intent(getApplicationContext(), AlarmService.class);
+                        intent.putExtra("alarm-uri", alarm);
                         intent.putExtra("vibrate-boolean", vibrate);
                         intent.putExtra("alarm-boolean", playalarm);
-                            getApplicationContext().startService(intent);
+                        getApplicationContext().startService(intent);
 
                         Intent resultIntent = getIntent();
                         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(getApplication(), 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         int lightscolor = sharedPref.getInt("preference_color", 0xFFA4C639);
                         boolean led = sharedPref.getBoolean("ledpreference", true);
-                            mBuilder2
-                                    .setOngoing(false)
-                                    .setAutoCancel(true) // notification automatically dismissed when the user touches it
-                                    .setSmallIcon(R.drawable.ic_add_alarm_white_24dp)
-                                    .setContentTitle("PerfEGGtion")
-                                    .setFullScreenIntent(fullScreenPendingIntent, true)
-                                    .setCategory("CATEGORY_ALARM")
-                                    .setContentText("DONEDONEDONE");
+                        mBuilder2
+                                .setOngoing(false)
+                                .setAutoCancel(true) // notification automatically dismissed when the user touches it
+                                .setSmallIcon(R.drawable.ic_alarm_off_24dp)
+                                .setContentTitle("PerfEGGtion")
+                                .setFullScreenIntent(fullScreenPendingIntent, true)
+                                .setCategory("CATEGORY_ALARM")
+                                .setContentText("DONEDONEDONE");
 
                         if (led) {
                             mBuilder2.setLights(lightscolor, 500, 500);
                         }
-                            Intent notificationIntent = new Intent();
-                            notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
+                        Intent notificationIntent = new Intent();
+                        notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_ALARMSERVICE");
                         PendingIntent notificationtPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "Stop alarm", notificationtPendingIntent).build();
                         if (!action2added) {

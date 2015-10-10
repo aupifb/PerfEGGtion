@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal|top"
         android:max="100"
         android:paddingTop="25dp"
-        android:progressDrawable="@drawable/circular" />
+        android:progressDrawable="@drawable/circular"/>
 
     <TextView
         android:id="@+id/mTextField"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:lines="2"
-        android:paddingBottom="25dp" />
+        android:paddingBottom="25dp"/>
 
     <ImageButton
         android:id="@+id/buttonstop"
@@ -31,7 +31,7 @@
         android:layout_gravity="bottom|left"
         android:background="@android:color/transparent"
         android:paddingBottom="110dp"
-        android:src="@drawable/ic_stop_black_48dp" />
+        android:src="@drawable/ic_stop_black_48dp"/>
 
     <ImageButton
         android:id="@+id/buttonpause"
@@ -40,7 +40,7 @@
         android:layout_gravity="bottom|right"
         android:background="@android:color/transparent"
         android:paddingBottom="110dp"
-        android:src="@drawable/ic_pause_black_48dp" />
+        android:src="@drawable/ic_pause_black_48dp"/>
 
     <ImageButton
         android:id="@+id/buttonalarm"
@@ -50,7 +50,7 @@
         android:background="@android:color/transparent"
         android:paddingTop="90dp"
         android:src="@drawable/ic_pause_black_48dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAlarm"
@@ -60,7 +60,7 @@
         android:src="@drawable/ic_add_alarm_white_24dp"
         app:backgroundTint="@color/accent"
         app:borderWidth="0dp"
-        app:fabSize="normal" />
+        app:fabSize="normal"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

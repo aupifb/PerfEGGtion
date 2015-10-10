@@ -1,15 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="192dp"
-    android:background="?attr/colorPrimaryDark"
-    android:gravity="bottom"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Light">
+              android:layout_width="match_parent"
+              android:layout_height="192dp"
+              android:background="?attr/colorPrimaryDark"
+              android:gravity="bottom"
+              android:padding="16dp"
+              android:theme="@style/ThemeOverlay.AppCompat.Light">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="192dp"
-        android:src="@drawable/perfeggtion" />
+        android:src="@drawable/perfeggtion"/>
 
 </LinearLayout>

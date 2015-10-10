@@ -7,34 +7,34 @@
             android:defaultValue="true"
             android:key="displaynotification"
             android:summary="@string/notificationsummary"
-            android:title="@string/notification" />
+            android:title="@string/notification"/>
 
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:dependency="displaynotification"
-                android:key="onlybackgroundpreference"
-                android:summary="@string/onlybackgroundpreferencesummary"
-                android:title="@string/onlybackgroundpreference" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="displaynotification"
+            android:key="onlybackgroundpreference"
+            android:summary="@string/onlybackgroundpreferencesummary"
+            android:title="@string/onlybackgroundpreference"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="alarmpreference"
             android:summary="@string/playalarmsummary"
-            android:title="@string/playalarm" />
+            android:title="@string/playalarm"/>
 
-            <RingtonePreference
-                android:dependency="alarmpreference"
-                android:key="ringtonepreference"
-                android:ringtoneType="alarm"
-                android:showDefault="true"
-                android:showSilent="false"
-                android:title="@string/preference_alarm_tone" />
+        <RingtonePreference
+            android:dependency="alarmpreference"
+            android:key="ringtonepreference"
+            android:ringtoneType="alarm"
+            android:showDefault="true"
+            android:showSilent="false"
+            android:title="@string/preference_alarm_tone"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="vibratorpreference"
             android:summary="@string/preference_vibrator_summary"
-            android:title="@string/preference_vibrator_title" />
+            android:title="@string/preference_vibrator_title"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -33,7 +33,7 @@ public class ResetDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.alert_dialog_yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                PreferenceFragment fragmentset = (PreferenceFragment)getFragmentManager().findFragmentByTag("PreferenceFragmentTAG");
+                                PreferenceFragment fragmentset = (PreferenceFragment) getFragmentManager().findFragmentByTag("PreferenceFragmentTAG");
                                 fragmentset.resetprefs();
                             }
                         }
