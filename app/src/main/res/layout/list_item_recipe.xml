@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Start timer"/>
+
+    <TextView
+        android:id="@+id/list_item_crime_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/button_start"
+        android:padding="4dp"
+        android:textStyle="bold"
+        tools:text="Crime Title"/>
+
+    <TextView
+        android:id="@+id/list_item_crime_date_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_item_crime_title_text_view"
+        android:layout_toLeftOf="@id/button_start"
+        android:padding="4dp"
+        tools:text="Crime Date"/>
+
+    <ImageView
+        android:id="@+id/recipe_photo_list"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/button_start"
+        android:background="@android:color/darker_gray"
+        android:cropToPadding="true"
+        android:scaleType="centerInside"/>
+
+</RelativeLayout>

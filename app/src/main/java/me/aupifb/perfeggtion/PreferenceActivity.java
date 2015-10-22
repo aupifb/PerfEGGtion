@@ -139,4 +139,6 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
         Vibrator vibratordone = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
         return vibratordone.hasVibrator();
     }
+
+    //lol
 }
