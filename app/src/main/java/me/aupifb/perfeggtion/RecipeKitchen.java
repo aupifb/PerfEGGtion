@@ -68,5 +68,4 @@ public class RecipeKitchen {
         return new File(externalFilesDir, recipe.getPhotoFilename());
     }
 
-
 }

@@ -34,7 +34,6 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@id/button_start"
-        android:background="@android:color/darker_gray"
         android:cropToPadding="true"
         android:scaleType="centerInside"/>
 

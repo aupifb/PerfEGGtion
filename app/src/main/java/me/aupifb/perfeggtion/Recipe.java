@@ -1,22 +1,21 @@
 package me.aupifb.perfeggtion;
 
-import com.bumptech.glide.signature.StringSignature;
 import com.orm.SugarRecord;
 
 public class Recipe extends SugarRecord {
 
     private String mTitle;
     private int mDurationSec;
-    private StringSignature mStringSignature;
+    private String mSignature;
 
     public Recipe() {
 
     }
 
-    public Recipe(String title, int durationSec, StringSignature stringSignature) {
+    public Recipe(String title, int durationSec, String signature) {
         mTitle = title;
         mDurationSec = durationSec;
-        mStringSignature = stringSignature;
+        mSignature = signature;
     }
 
     public String getTitle() {
@@ -39,11 +38,11 @@ public class Recipe extends SugarRecord {
         return "IMG_" + getId().toString() + ".jpg";
     }
 
-    public StringSignature getStringSignature() {
-        return mStringSignature;
+    public String getSignature() {
+        return mSignature;
     }
 
-    public void setStringSignature(StringSignature stringSignature) {
-        mStringSignature = stringSignature;
+    public void setSignature(String signature) {
+        mSignature = signature;
     }
 }

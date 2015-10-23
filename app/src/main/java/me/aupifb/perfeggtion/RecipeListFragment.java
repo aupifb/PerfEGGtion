@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
+
 import java.io.File;
 import java.util.List;
 
@@ -157,6 +160,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mTitleTextView.setText(mRecipe.getTitle());
             mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
             mPhotoFile = RecipeKitchen.get(getActivity()).getPhotoFile(mRecipe);
+            Glide.with(getContext()).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mPhotoViewList);
         }
 
         @Override

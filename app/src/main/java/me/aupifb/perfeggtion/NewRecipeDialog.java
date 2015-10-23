@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import com.bumptech.glide.signature.StringSignature;
-
 import java.util.UUID;
 
 /**
@@ -44,7 +42,7 @@ public class NewRecipeDialog extends DialogFragment {
                                 int recipeDuration;
                                 if (recipeTitle.length() > 0 && editText_duration.length() > 0) {
                                     recipeDuration = Integer.parseInt(editText_duration.getText().toString());
-                                    Recipe mRecipe = new Recipe(recipeTitle, recipeDuration, new StringSignature(UUID.randomUUID().toString()));
+                                    Recipe mRecipe = new Recipe(recipeTitle, recipeDuration, UUID.randomUUID().toString());
                                     RecipeKitchen.get(getContext()).addRecipe(mRecipe);
                                 } else {
                                     if (recipeTitle.length() == 0) {

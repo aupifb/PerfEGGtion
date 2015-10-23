@@ -73,7 +73,7 @@ public class RecipeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mRecipe.save();
             }
         });
 
@@ -92,7 +92,7 @@ public class RecipeFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mRecipe.save();
             }
         });
 
@@ -126,14 +126,14 @@ public class RecipeFragment extends Fragment {
         });
 
         mGlideView = (ImageView) v.findViewById(R.id.recipe_photo_fresco);
-        Glide.with(this).load(mPhotoFile).signature(mRecipe.getStringSignature()).into(mGlideView);
+        Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
 
         return v;
     }
 
     private void updatePhotoView() {
-        mRecipe.setStringSignature(new StringSignature(UUID.randomUUID().toString()));
-        Glide.with(this).load(mPhotoFile).signature(mRecipe.getStringSignature()).into(mGlideView);
+        mRecipe.setSignature(UUID.randomUUID().toString());
+        Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
     }
 
     @Override
