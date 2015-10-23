@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -32,8 +32,7 @@ public class RecipeFragment extends Fragment {
     private Button mButtonDelete;
     private File mPhotoFile;
     private ImageButton mPhotoButton;
-    private ImageView mPhotoView;
-    private SimpleDraweeView mDraweeView;
+    private ImageView mPhotoView, mGlideView;
 
     public static RecipeFragment newInstance(long recipeId) {
         Bundle args = new Bundle();
@@ -128,9 +127,8 @@ public class RecipeFragment extends Fragment {
         mPhotoView = (ImageView) v.findViewById(R.id.recipe_photo);
         updatePhotoView();
 
-        mDraweeView = (SimpleDraweeView) v.findViewById(R.id.recipe_photo_fresco);
-        mDraweeView.setImageURI(Uri.fromFile(mPhotoFile));
-
+        mGlideView = (ImageView) v.findViewById(R.id.recipe_photo_fresco);
+        Glide.with(this).load(mPhotoFile).into(mGlideView);
 
         return v;
     }
