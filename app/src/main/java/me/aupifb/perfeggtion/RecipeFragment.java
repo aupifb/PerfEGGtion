@@ -126,13 +126,14 @@ public class RecipeFragment extends Fragment {
         });
 
         mGlideView = (ImageView) v.findViewById(R.id.recipe_photo_fresco);
-        Glide.with(this).load(mPhotoFile).signature(new StringSignature(UUID.randomUUID().toString())).into(mGlideView);
+        Glide.with(this).load(mPhotoFile).signature(mRecipe.getStringSignature()).into(mGlideView);
 
         return v;
     }
 
     private void updatePhotoView() {
-        Glide.with(this).load(mPhotoFile).signature(new StringSignature(UUID.randomUUID().toString())).into(mGlideView);
+        mRecipe.setStringSignature(new StringSignature(UUID.randomUUID().toString()));
+        Glide.with(this).load(mPhotoFile).signature(mRecipe.getStringSignature()).into(mGlideView);
     }
 
     @Override
