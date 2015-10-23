@@ -8,7 +8,6 @@
         android:id="@+id/recipe_photo_fresco"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_toRightOf="@id/recipe_photo"
         />
 
     <TextView
@@ -42,14 +41,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"/>
-
-    <ImageView
-        android:id="@+id/recipe_photo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@android:color/darker_gray"
-        android:cropToPadding="true"
-        android:scaleType="centerInside"/>
 
     <ImageButton
         android:id="@+id/recipe_camera"

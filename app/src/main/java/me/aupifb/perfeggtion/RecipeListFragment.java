@@ -3,7 +3,6 @@ package me.aupifb.perfeggtion;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -158,13 +157,6 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mTitleTextView.setText(mRecipe.getTitle());
             mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
             mPhotoFile = RecipeKitchen.get(getActivity()).getPhotoFile(mRecipe);
-            if (mPhotoFile == null || !mPhotoFile.exists()) {
-                mPhotoViewList.setImageDrawable(null);
-            } else {
-                Bitmap bitmap = PictureUtils.getScaledBitmap(
-                        mPhotoFile.getPath(), getActivity());
-                mPhotoViewList.setImageBitmap(bitmap);
-            }
         }
 
         @Override

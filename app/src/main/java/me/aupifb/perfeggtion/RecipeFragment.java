@@ -3,7 +3,6 @@ package me.aupifb.perfeggtion;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,8 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 
 import java.io.File;
+import java.util.UUID;
 
 public class RecipeFragment extends Fragment {
 
@@ -32,7 +33,7 @@ public class RecipeFragment extends Fragment {
     private Button mButtonDelete;
     private File mPhotoFile;
     private ImageButton mPhotoButton;
-    private ImageView mPhotoView, mGlideView;
+    private ImageView mGlideView;
 
     public static RecipeFragment newInstance(long recipeId) {
         Bundle args = new Bundle();
@@ -124,23 +125,14 @@ public class RecipeFragment extends Fragment {
             }
         });
 
-        mPhotoView = (ImageView) v.findViewById(R.id.recipe_photo);
-        updatePhotoView();
-
         mGlideView = (ImageView) v.findViewById(R.id.recipe_photo_fresco);
-        Glide.with(this).load(mPhotoFile).into(mGlideView);
+        Glide.with(this).load(mPhotoFile).signature(new StringSignature(UUID.randomUUID().toString())).into(mGlideView);
 
         return v;
     }
 
     private void updatePhotoView() {
-        if (mPhotoFile == null || !mPhotoFile.exists()) {
-            mPhotoView.setImageDrawable(null);
-        } else {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(
-                    mPhotoFile.getPath(), getActivity());
-            mPhotoView.setImageBitmap(bitmap);
-        }
+        Glide.with(this).load(mPhotoFile).signature(new StringSignature(UUID.randomUUID().toString())).into(mGlideView);
     }
 
     @Override
