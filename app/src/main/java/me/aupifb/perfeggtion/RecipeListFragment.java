@@ -112,12 +112,15 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipes();
 
-        if (mAdapter == null) {
+        mAdapter = new RecipeAdapter(recipes);
+        mRecipeRecyclerView.setAdapter(mAdapter);
+        /*if (mAdapter == null) {
             mAdapter = new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.notifyDataSetChanged();
-        }
+
+        }*/
 
     }
 

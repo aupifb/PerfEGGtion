@@ -133,6 +133,7 @@ public class RecipeFragment extends Fragment {
 
     private void updatePhotoView() {
         mRecipe.setSignature(UUID.randomUUID().toString());
+        mRecipe.save();
         Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
     }
 
