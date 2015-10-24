@@ -160,8 +160,8 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
 
         public void bindRecipe(Recipe recipe) {
             mRecipe = recipe;
-            mTitleTextView.setText(mRecipe.getTitle());
-            mDateTextView.setText(Integer.toString(mRecipe.getDurationSec()));
+            mTitleTextView.setText(String.format(getResources().getString(R.string.recipe_title_list_fragment), mRecipe.getTitle()));
+            mDateTextView.setText(String.format(getResources().getString(R.string.recipe_duration_list_fragment), mRecipe.getDurationSec()));
             mPhotoFile = RecipeKitchen.get(getActivity()).getPhotoFile(mRecipe);
             Glide.with(getContext()).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mPhotoViewList);
         }
