@@ -326,12 +326,13 @@ public class MainActivity extends AppCompatActivity {
         boolean displaynotification = sharedPref.getBoolean("displaynotification", true);
         boolean onlybackgroundpreference = sharedPref.getBoolean("onlybackgroundpreference", true);
 
-        String textsecs, textmins;
+        String textsecs = ".", textmins = "";
 
         int mins = (int) (notifnumber / 60000);
+        Log.d("lol", Integer.toString(mins));
         int secs = (int) (notifnumber / 1000 - mins * 60);
 
-        switch (mins) {
+        /*switch (mins) {
             default:
                 textmins = mins + " minutes";
                 break;
@@ -364,12 +365,22 @@ public class MainActivity extends AppCompatActivity {
                     textsecs = secs + " second.";
                 }
                 break;
+        }*/
+
+        if (mins != 0) {
+            textmins = getResources().getQuantityString(R.plurals.minutes_remaining, mins, mins);
+        }
+        if (secs != 0) {
+            textsecs = getResources().getQuantityString(R.plurals.seconds_remaining, secs, secs);
         }
 
-
         if (timerstate == 1) {
+            String spaceString = " ";
+            if (secs == 0) {
+                spaceString = "";
+            }
             notiftext = "Time remaining: " + textmins + textsecs;
-            String textviewtext = "Time remaining:\n" + textmins + textsecs;
+            String textviewtext = "Time remaining:\n" + textmins + spaceString + textsecs;
 
             if (pager.getCurrentItem() == 0) {
                 MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
