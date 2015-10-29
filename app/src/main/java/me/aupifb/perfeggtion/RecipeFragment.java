@@ -53,7 +53,7 @@ public class RecipeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_recipe, container, false);
 
         PackageManager packageManager = getActivity().getPackageManager();
@@ -129,6 +129,13 @@ public class RecipeFragment extends Fragment {
 
         mGlideView = (ImageView) v.findViewById(R.id.recipe_photo_fresco);
         Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
+        mGlideView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.DialogFragment zoomFragment = ZoomFragment.newInstance(mRecipe.getId());
+                zoomFragment.show(getFragmentManager(), "zoomdialog");
+            }
+        });
 
         return v;
     }
