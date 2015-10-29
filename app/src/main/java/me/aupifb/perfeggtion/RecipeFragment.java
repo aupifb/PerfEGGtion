@@ -87,7 +87,9 @@ public class RecipeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setDurationSec(Integer.parseInt(s.toString()));
+                if (s.length() >= 1) {
+                    mRecipe.setDurationSec(Integer.parseInt(s.toString()));
+                }
             }
 
             @Override

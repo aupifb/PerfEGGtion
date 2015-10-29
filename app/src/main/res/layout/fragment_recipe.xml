@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:hint="Timer duration (sec)"/>
+        android:hint="Timer duration (sec)"
+        android:inputType="numberSigned"/>
 
     <Button
         android:id="@+id/button_recipe_delete"
