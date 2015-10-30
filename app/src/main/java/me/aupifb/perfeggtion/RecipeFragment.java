@@ -27,7 +27,7 @@ import java.util.UUID;
 public class RecipeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
-    private static final int REQUEST_PHOTO = 2;
+    private static final int REQUEST_PHOTO = 2, CHANGED_PHOTO = 0;
     private Recipe mRecipe;
     private EditText mTitleField, mEditTextDuration;
     private Button mButtonDelete;
@@ -133,6 +133,7 @@ public class RecipeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 android.support.v4.app.DialogFragment zoomFragment = ZoomFragment.newInstance(mRecipe.getId());
+                zoomFragment.setTargetFragment(RecipeFragment.this, CHANGED_PHOTO);
                 zoomFragment.show(getFragmentManager(), "zoomdialog");
             }
         });
@@ -153,6 +154,10 @@ public class RecipeFragment extends Fragment {
         }
 
         if (requestCode == REQUEST_PHOTO) {
+            updatePhotoView();
+        }
+
+        if (requestCode == CHANGED_PHOTO) {
             updatePhotoView();
         }
 

@@ -29,8 +29,8 @@ import java.util.UUID;
  */
 public class ZoomFragment extends DialogFragment {
 
-    private static final String ARG_CRIME_ID = "crime_id";
-    private static final int REQUEST_PHOTO = 2;
+    private static final String ARG_CRIME_ID = "crime_id", EXTRA_CHANGED_PHOTO = "me.aupifb.perfeggtion.changedphoto";
+    private static final int REQUEST_PHOTO = 2, CHANGED_PHOTO = 2;
     private Recipe mRecipe;
     private ImageView mGlideView;
     private Button mButtonDelete;
@@ -69,6 +69,23 @@ public class ZoomFragment extends DialogFragment {
         mGlideView = (ImageView) v.findViewById(R.id.zoom_photo);
         Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
 
+        mButtonDelete = (Button) v.findViewById(R.id.button_recipe_delete);
+        mButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.fromFile(mPhotoFile);
+                File fdelete = new File(uri.getPath());
+                if (fdelete.exists()) {
+                    if (fdelete.delete()) {
+                        System.out.println("file Deleted :" + uri.getPath());
+                    } else {
+                        System.out.println("file not Deleted :" + uri.getPath());
+                    }
+                }
+                updatePhotoView();
+            }
+        });
+
         mPhotoButton = (ImageButton) v.findViewById(R.id.recipe_camera);
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -91,19 +108,16 @@ public class ZoomFragment extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setPositiveButton(android.R.string.ok,
+                .setPositiveButton(getString(R.string.string_done),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //
+                                Intent i = new Intent()
+                                        .putExtra(EXTRA_CHANGED_PHOTO, true);
+                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                                dismiss();
                             }
                         })
-                .setNegativeButton(R.string.alert_dialog_cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
-                        }
-                )
                 .create();
 
     }
