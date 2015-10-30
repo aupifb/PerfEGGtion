@@ -158,7 +158,10 @@ public class RecipeFragment extends Fragment {
         }
 
         if (requestCode == CHANGED_PHOTO) {
+            Boolean mPhotoChanged = data.getBooleanExtra(ZoomFragment.EXTRA_CHANGED_PHOTO, false);
+            if (mPhotoChanged) {
             updatePhotoView();
+            }
         }
 
     }

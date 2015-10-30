@@ -29,13 +29,14 @@ import java.util.UUID;
  */
 public class ZoomFragment extends DialogFragment {
 
-    private static final String ARG_CRIME_ID = "crime_id", EXTRA_CHANGED_PHOTO = "me.aupifb.perfeggtion.changedphoto";
+    public static final String ARG_CRIME_ID = "crime_id", EXTRA_CHANGED_PHOTO = "me.aupifb.perfeggtion.changedphoto";
     private static final int REQUEST_PHOTO = 2, CHANGED_PHOTO = 2;
     private Recipe mRecipe;
     private ImageView mGlideView;
     private Button mButtonDelete;
     private File mPhotoFile;
     private ImageButton mPhotoButton;
+    private Boolean mPhotoChanged = false;
 
     public ZoomFragment() {
         // Required empty public constructor
@@ -82,6 +83,7 @@ public class ZoomFragment extends DialogFragment {
                         System.out.println("file not Deleted :" + uri.getPath());
                     }
                 }
+                mPhotoChanged = true;
                 updatePhotoView();
             }
         });
@@ -113,7 +115,7 @@ public class ZoomFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent i = new Intent()
-                                        .putExtra(EXTRA_CHANGED_PHOTO, true);
+                                        .putExtra(EXTRA_CHANGED_PHOTO, mPhotoChanged);
                                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
                                 dismiss();
                             }
@@ -135,6 +137,7 @@ public class ZoomFragment extends DialogFragment {
         }
 
         if (requestCode == REQUEST_PHOTO) {
+            mPhotoChanged = true;
             updatePhotoView();
         }
 
