@@ -57,7 +57,6 @@ public class ZoomFragment extends DialogFragment {
         long recipeId = getArguments().getLong(ARG_CRIME_ID, 1);
         mRecipe = RecipeKitchen.get(getActivity()).getRecipe(recipeId);
         mPhotoFile = RecipeKitchen.get(getActivity()).getPhotoFile(mRecipe);
-
     }
 
 
@@ -68,6 +67,9 @@ public class ZoomFragment extends DialogFragment {
                 .inflate(R.layout.fragment_photozoom, null);
 
         mGlideView = (ImageView) v.findViewById(R.id.zoom_photo);
+        if (mPhotoFile.exists()) {
+            mGlideView.setVisibility(View.VISIBLE);
+        }
         Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
 
         mButtonDelete = (Button) v.findViewById(R.id.button_recipe_delete);
@@ -85,6 +87,10 @@ public class ZoomFragment extends DialogFragment {
                 }
                 mPhotoChanged = true;
                 updatePhotoView();
+                mGlideView.setVisibility(View.GONE);
+                Intent i = new Intent()
+                        .putExtra(EXTRA_CHANGED_PHOTO, mPhotoChanged);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
             }
         });
 
@@ -138,6 +144,7 @@ public class ZoomFragment extends DialogFragment {
 
         if (requestCode == REQUEST_PHOTO) {
             mPhotoChanged = true;
+            mGlideView.setVisibility(View.VISIBLE);
             updatePhotoView();
         }
 
