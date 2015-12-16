@@ -23,8 +23,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Bind(R.id.mTextField)
     TextView mTextField;
-    @Bind(R.id.fabAlarm)
-    android.support.design.widget.FloatingActionButton fabAlarm;
     @Bind(R.id.circleprogress)
     ProgressBar circleprogress;
     @Bind(R.id.buttonstop)
@@ -46,11 +44,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         ButterKnife.bind(this, view);
 
         return (view);
-    }
-
-    @OnClick(R.id.fabAlarm)
-    public void dothis2() {
-        ((MainActivity) getActivity()).timeselectalertdialog();
     }
 
     @OnClick(R.id.buttonstop)

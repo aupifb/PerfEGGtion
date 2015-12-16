@@ -16,7 +16,9 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -121,12 +123,30 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final FloatingActionButton fabList = (FloatingActionButton) findViewById(R.id.fabList);
+        fabList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final FloatingActionButton fabMain = (FloatingActionButton) findViewById(R.id.fabMain);
+        fabMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeselectalertdialog();
+            }
+        });
+
+        fabMain.show();
+        fabList.hide();
+
         pager = (ViewPager) findViewById(R.id.pager);
         a = (FragmentStatePagerAdapter) pager.getAdapter();
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -134,7 +154,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("pager", "pager " + position);
                 AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
                 if (position == 0) {
+                    fabMain.show();
+                    fabList.hide();
                     appbar.setExpanded(true);
+                } else {
+                    fabList.show();
+                    fabMain.hide();
                 }
             }
 
@@ -522,7 +547,7 @@ public class MainActivity extends AppCompatActivity {
                     notifmethod(mProgressStatus, true);
                     if (pager.getCurrentItem() == 0) {
                         MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-                        mainActivityFragment2.snackinfragment("notifdone", "doneaction");
+                        makesnack("notifdone", "doneaction");
                         mainActivityFragment2.circleprogress(mProgressStatus);
                         mainActivityFragment2.showbuttonalarm();
                         mainActivityFragment2.setmTextField("Eggs are ready!");
@@ -578,6 +603,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }.start();
         }
+    }
+
+    private void makesnack(String notifdone, String doneaction) {
+        Snackbar.make(findViewById(R.id.coordinatorLayout), notifdone, Snackbar.LENGTH_LONG)
+                .setAction(doneaction, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("lol", "snackmethodinfragment");
+                    }
+                })
+                .setActionTextColor(16717848)
+                .show();
     }
 
     private void notificationdone() {
