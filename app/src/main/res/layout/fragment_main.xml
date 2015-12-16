@@ -56,11 +56,13 @@
         android:id="@+id/fabAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add_alarm_white_24dp"
         app:backgroundTint="@color/accent"
-        app:borderWidth="0dp"
-        app:fabSize="normal"/>
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"/>
 
 
 </android.support.design.widget.CoordinatorLayout>
