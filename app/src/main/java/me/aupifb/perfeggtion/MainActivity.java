@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -117,11 +118,31 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(BroadcastReceiver_PLAYPAUSE_TIMER, new IntentFilter("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER"));
 
         // Initializing Toolbar and setting it as the actionbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         pager = (ViewPager) findViewById(R.id.pager);
         a = (FragmentStatePagerAdapter) pager.getAdapter();
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("pager", "pager " + position);
+                AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
+                if (position == 0) {
+                    appbar.setExpanded(true);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         //Initializing NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
