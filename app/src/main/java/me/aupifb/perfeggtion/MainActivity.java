@@ -561,9 +561,9 @@ public class MainActivity extends AppCompatActivity {
                     timerstate = 0;
                     mProgressStatus = 100;
                     notifmethod(mProgressStatus, true);
+                    makesnackdone();
                     if (pager.getCurrentItem() == 0) {
                         MainActivityFragment mainActivityFragment2 = (MainActivityFragment) pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-                        makesnack("notifdone", "doneaction");
                         mainActivityFragment2.circleprogress(mProgressStatus);
                         mainActivityFragment2.showbuttonalarm();
                         mainActivityFragment2.setmTextField("Eggs are ready!");
@@ -621,15 +621,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void makesnack(String notifdone, String doneaction) {
-        Snackbar.make(findViewById(R.id.coordinatorLayout), notifdone, Snackbar.LENGTH_LONG)
-                .setAction(doneaction, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("lol", "snackmethodinfragment");
-                    }
-                })
-                .setActionTextColor(16717848)
+    private void makesnackdone() {
+        Snackbar.make(findViewById(R.id.coordinatorLayout), "DONEDONE", Snackbar.LENGTH_LONG)
                 .show();
     }
 
