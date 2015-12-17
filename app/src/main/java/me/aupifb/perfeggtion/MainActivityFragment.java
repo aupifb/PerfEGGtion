@@ -1,7 +1,6 @@
 package me.aupifb.perfeggtion;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,35 +63,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-    }
-
-    public void snackinfragment(String text, String actiontext) {
-        Snackbar.make(getView(), text, Snackbar.LENGTH_LONG)
-                .setAction(actiontext, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("lol", "snackmethodinfragment");
-                    }
-                })
-                .setActionTextColor(16717848)
-                .show();
-    }
-
-    public void snackstoptimerinfragment() {
-        Snackbar.make(getView(), R.string.snackbar_timer_stopped, Snackbar.LENGTH_LONG)
-                .show();
-    }
-
-
-    public void snackpausetimerinfragment() {
-        Snackbar.make(getView(), R.string.snackbar_timer_paused, Snackbar.LENGTH_LONG)
-                .setAction(R.string.snackbar_undo_timer_paused, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((MainActivity) getActivity()).pausetimer();
-                    }
-                })
-                .show();
     }
 
     public void circleprogress(int mProgressStatus) {

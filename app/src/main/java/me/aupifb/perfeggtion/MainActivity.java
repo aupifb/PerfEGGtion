@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
                 timerstate = 0;
                 notificationManager.cancel(mId);
 
+                makesnackstoptimer();
                 MainActivityFragment mainActivityFragment3 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
                         "android:switcher:" + R.id.pager + ":0");
                 if (mainActivityFragment3 != null)  // could be null if not instantiated yet
@@ -294,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
                     if (mainActivityFragment3.getView() != null) {
                         // no need to call if fragment's onDestroyView()
                         //has since been called.
-                        mainActivityFragment3.snackstoptimerinfragment();
                         mainActivityFragment3.circleprogress(0);
                         mainActivityFragment3.setmTextField("Timer stopped");
                     }
@@ -304,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
                 timer1.cancel();
                 timerstate = 0;
                 notificationManager.cancel(mId);
+                makesnackstoptimer();
                 MainActivityFragment mainActivityFragment4 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
                         "android:switcher:" + R.id.pager + ":0");
                 if (mainActivityFragment4 != null)  // could be null if not instantiated yet
@@ -311,7 +312,6 @@ public class MainActivity extends AppCompatActivity {
                     if (mainActivityFragment4.getView() != null) {
                         // no need to call if fragment's onDestroyView()
                         //has since been called.
-                        mainActivityFragment4.snackstoptimerinfragment();
                         mainActivityFragment4.circleprogress(0);
                         mainActivityFragment4.setmTextField("Timer stopped");
                     }
@@ -320,6 +320,11 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    private void makesnackstoptimer() {
+        Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.snackbar_timer_stopped, Snackbar.LENGTH_LONG)
+                .show();
     }
 
     public void pausetimer() {
@@ -344,14 +349,8 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.notify(mId, mBuilder.build());
             MainActivityFragment mainActivityFragment5 = (MainActivityFragment) getSupportFragmentManager().findFragmentByTag(
                     "android:switcher:" + R.id.pager + ":0");
-            if (mainActivityFragment5 != null)  // could be null if not instantiated yet
-            {
-                if (mainActivityFragment5.getView() != null) {
-                    // no need to call if fragment's onDestroyView()
-                    //has since been called.
-                    mainActivityFragment5.snackpausetimerinfragment(); // do what updates are required
-                }
-            }
+
+            makesnackpausetimer();
         } else if (timerstate == 2) {
             if (totaltime2 == 0) {
                 totaltime2 = totaltime1;
@@ -359,6 +358,17 @@ public class MainActivity extends AppCompatActivity {
             countdownstart(timeremaining / 1000);
             timerstate = 1;
         }
+    }
+
+    private void makesnackpausetimer() {
+        Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.snackbar_timer_paused, Snackbar.LENGTH_LONG)
+                .setAction(R.string.snackbar_undo_timer_paused, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pausetimer();
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -622,6 +632,7 @@ public class MainActivity extends AppCompatActivity {
                 .setActionTextColor(16717848)
                 .show();
     }
+
 
     private void notificationdone() {
         Intent resultIntent = this.getIntent();
