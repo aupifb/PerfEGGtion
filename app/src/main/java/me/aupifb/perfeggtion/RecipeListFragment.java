@@ -4,7 +4,6 @@ package me.aupifb.perfeggtion;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -89,18 +88,6 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_new_crime:
-                FragmentManager manager = getFragmentManager();
-                NewRecipeDialog dialog = NewRecipeDialog
-                        .newInstance();
-                dialog.show(manager, DIALOG_NEW_RECIPE);
-                //Recipe recipe = new Recipe("ha", 20);
-                //RecipeKitchen.get(getActivity()).addRecipe(recipe);
-                //Intent intent = RecipePagerActivity
-                //.newIntent(getActivity(), crime.getId());
-                //startActivity(intent);
-                updateUI();
-                return true;
             default:
                 updateUI();
                 return super.onOptionsItemSelected(item);

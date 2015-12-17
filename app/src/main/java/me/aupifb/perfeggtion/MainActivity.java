@@ -21,6 +21,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
@@ -37,6 +38,8 @@ import android.widget.Toast;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String DIALOG_NEW_RECIPE = "DialogNewRecipe";
 
     public static boolean activityVisible; // used to determine if app is in foreground
     boolean waspaused;
@@ -127,7 +130,10 @@ public class MainActivity extends AppCompatActivity {
         fabList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_SHORT).show();
+                FragmentManager manager = getSupportFragmentManager();
+                NewRecipeDialog dialog = NewRecipeDialog
+                        .newInstance();
+                dialog.show(manager, DIALOG_NEW_RECIPE);
             }
         });
 
