@@ -14,7 +14,9 @@ public class AboutFragment extends PreferenceFragmentCompat {
 
         Preference pref_version = findPreference("pref_licenses");
         pref_version.setSummary(BuildConfig.VERSION_NAME);
-        pref_version.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+        Preference licensesPreference = findPreference("licensesPreference");
+        licensesPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 android.support.v4.app.DialogFragment licensesDialogFragment = new LicensesDialogFragment();
