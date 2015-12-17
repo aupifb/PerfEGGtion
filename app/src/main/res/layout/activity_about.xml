@@ -5,14 +5,21 @@
               android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar57"
         layout="@layout/toolbar"
         ></include>
 
-    <TextView
-        android:id="@+id/textView"
+    <FrameLayout
+        android:id="@+id/aboutcontainer"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_text"/>
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
 
 </LinearLayout>

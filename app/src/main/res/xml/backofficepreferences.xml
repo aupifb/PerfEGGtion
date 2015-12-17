@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_general"
+        android:title="@string/pref_misc">
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="ledpreference"
+            android:summary="@string/preference_led_summary"
+            android:title="@string/preference_led_title"/>
+
+        <Preference
+            android:key="preferencebutton"
+            android:summary="@string/resetprefssummary"
+            android:title="@string/resetprefs"
+            />
+
+        <Preference android:title="@string/prefs_web_page">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.aupifb.me"/>
+        </Preference>
+
+        <Preference
+            android:key="pref_version"
+            android:title="@string/pref_version"/>
+
+    </PreferenceCategory>
 </PreferenceScreen>

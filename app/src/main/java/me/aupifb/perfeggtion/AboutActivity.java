@@ -14,10 +14,13 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
+        Toolbar toolbar57 = (Toolbar) findViewById(R.id.toolbar57);
+        setSupportActionBar(toolbar57);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        // Display the fragment as the main content.
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.aboutcontainer, new AboutFragment())
+                .commit();
     }
 }
