@@ -22,7 +22,7 @@
         </Preference>
 
         <Preference
-            android:key="pref_version"
+            android:key="pref_licenses"
             android:title="@string/pref_version"/>
 
     </PreferenceCategory>
