@@ -30,7 +30,7 @@
         android:layout_gravity="bottom|left"
         android:background="@android:color/transparent"
         android:paddingBottom="110dp"
-        android:src="@drawable/ic_stop_black_48dp"/>
+        android:src="@drawable/ic_alarm_off_24dp"/>
 
     <ImageButton
         android:id="@+id/buttonpause"
@@ -39,7 +39,7 @@
         android:layout_gravity="bottom|right"
         android:background="@android:color/transparent"
         android:paddingBottom="110dp"
-        android:src="@drawable/ic_pause_black_48dp"/>
+        android:src="@drawable/ic_help_black_24dp"/>
 
     <ImageButton
         android:id="@+id/buttonalarm"
@@ -48,7 +48,7 @@
         android:layout_gravity="center"
         android:background="@android:color/transparent"
         android:paddingTop="90dp"
-        android:src="@drawable/ic_pause_black_48dp"
+        android:src="@drawable/ic_timer_black_24dp"
         android:visibility="invisible"/>
 
 </android.support.design.widget.CoordinatorLayout>

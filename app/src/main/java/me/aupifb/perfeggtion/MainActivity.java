@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -24,6 +25,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -126,27 +128,21 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final FloatingActionButton fabList = (FloatingActionButton) findViewById(R.id.fabList);
-        fabList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = getSupportFragmentManager();
-                NewRecipeDialog dialog = NewRecipeDialog
-                        .newInstance();
-                dialog.show(manager, DIALOG_NEW_RECIPE);
-            }
-        });
 
         final FloatingActionButton fabMain = (FloatingActionButton) findViewById(R.id.fabMain);
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timeselectalertdialog();
+                if (pager.getCurrentItem() == 0) {
+                    timeselectalertdialog();
+                } else {
+                    newRecipeDialog();
+                }
+
             }
         });
 
         fabMain.show();
-        fabList.hide();
 
         pager = (ViewPager) findViewById(R.id.pager);
         a = (FragmentStatePagerAdapter) pager.getAdapter();
@@ -160,12 +156,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("pager", "pager " + position);
                 AppBarLayout appbar = (AppBarLayout) findViewById(R.id.appbar);
                 if (position == 0) {
-                    fabMain.show();
-                    fabList.hide();
+                    fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.accent)));
+                    fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_alarm_off_24dp));
                     appbar.setExpanded(true);
                 } else {
-                    fabList.show();
-                    fabMain.hide();
+                    fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark)));
+                    fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_help_black_24dp));
                 }
             }
 
@@ -503,13 +499,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent notificationIntent = new Intent();
                 notificationIntent.setAction("me.aupifb.perfeggtion.ACTION_STOP_TIMER");
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_stop_black_24dp, "STOP", resultPendingIntent).build();
+                NotificationCompat.Action testaction = new NotificationCompat.Action.Builder(R.drawable.ic_alarm_off_24dp, "STOP", resultPendingIntent).build();
                 mBuilder.addAction(testaction);
 
                 Intent notificationIntent2 = new Intent();
                 notificationIntent2.setAction("me.aupifb.perfeggtion.ACTION_PLAYPAUSE_TIMER");
                 PendingIntent resultPendingIntent2 = PendingIntent.getBroadcast(getApplication(), 0, notificationIntent2, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_pause_black_36dp, "PLAY/PAUSE", resultPendingIntent2).build();
+                NotificationCompat.Action testaction2 = new NotificationCompat.Action.Builder(R.drawable.ic_help_black_24dp, "PLAY/PAUSE", resultPendingIntent2).build();
                 mBuilder.addAction(testaction2);
 
                 NotificationManager mNotificationManager =
@@ -551,6 +547,7 @@ public class MainActivity extends AppCompatActivity {
                     }).start();
 
                 }
+
 
                 @Override
                 public void onFinish() {
@@ -662,6 +659,11 @@ public class MainActivity extends AppCompatActivity {
                     R.string.alert_dialog_conflict_title);
             newFragment3.show(getFragmentManager(), "TimerConflictDialogFragment");
         } else timeselectalertdialog2();
+    }
+
+    public void newRecipeDialog() {
+            DialogFragment newFragment4 = NewRecipeDialog.newInstance();
+            newFragment4.show(getSupportFragmentManager(), "newRecipeDialogFragment");
     }
 
     @Override

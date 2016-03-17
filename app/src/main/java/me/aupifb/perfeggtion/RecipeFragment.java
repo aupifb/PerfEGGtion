@@ -131,7 +131,7 @@ public class RecipeFragment extends Fragment {
         if (mPhotoFile.exists()) {
             Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
         } else {
-            Glide.with(this).load(R.drawable.ic_stop_black_48dp).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
+            Glide.with(this).load(R.drawable.ic_alarm_off_24dp).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
         }
         mGlideView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,7 +151,7 @@ public class RecipeFragment extends Fragment {
         if (mPhotoFile.exists()) {
             Glide.with(this).load(mPhotoFile).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
         } else {
-            Glide.with(this).load(R.drawable.ic_stop_black_48dp).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
+            Glide.with(this).load(R.drawable.ic_alarm_off_24dp).signature(new StringSignature(mRecipe.getSignature())).into(mGlideView);
         }
     }
 
