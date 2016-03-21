@@ -49,7 +49,7 @@ public class RecipeKitchen {
     }
 
     public List<Recipe> getRecipesSearch(String query) {
-        return Recipe.find(Recipe.class, "M_TITLE = ?", query); }
+        return Recipe.findWithQuery(Recipe.class, "Select * from Recipe where M_TITLE LIKE ?", "%" + query + "%"); }
 
     public Recipe getRecipe(long id) {
         for (Recipe recipe : mRecipes) {
