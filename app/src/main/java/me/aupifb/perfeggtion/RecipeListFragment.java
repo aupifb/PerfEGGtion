@@ -58,7 +58,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view2 = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
+        View view2 = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         setRetainInstance(true);
 
         ButterKnife.bind(this, view2);
@@ -82,14 +82,14 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
+        inflater.inflate(R.menu.fragment_recipe_list, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             default:
-                updateUI();
+                updateUISEARCH();
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -108,8 +108,24 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mAdapter.notifyDataSetChanged();
 
         }*/
+    }
+
+    private void updateUISEARCH() {
+        RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
+        List<Recipe> recipes = recipeKitchen.getRecipesSearch();
+
+        mAdapter = new RecipeAdapter(recipes);
+        mRecipeRecyclerView.setAdapter(mAdapter);
+        /*if (mAdapter == null) {
+            mAdapter = new RecipeAdapter(recipes);
+            mRecipeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+
+        }*/
 
     }
+
 
     @Override
     public void onClick(View v) {
