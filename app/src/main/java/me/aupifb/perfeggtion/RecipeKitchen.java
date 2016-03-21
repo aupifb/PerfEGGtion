@@ -48,8 +48,8 @@ public class RecipeKitchen {
         return mRecipes;
     }
 
-    public List<Recipe> getRecipesSearch() {
-        return Recipe.find(Recipe.class, "M_TITLE = ?", "pizza"); }
+    public List<Recipe> getRecipesSearch(String query) {
+        return Recipe.find(Recipe.class, "M_TITLE = ?", query); }
 
     public Recipe getRecipe(long id) {
         for (Recipe recipe : mRecipes) {

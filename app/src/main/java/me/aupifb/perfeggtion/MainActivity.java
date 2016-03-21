@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         android.support.v7.widget.SearchView searchView =
-                (android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
+                ( android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
@@ -700,5 +700,20 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrentMainViewPagerItem(int position) {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setCurrentItem(position);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentByTag(
+                    "android:switcher:" + R.id.pager + ":1");
+            mRecipeListFragment.updateUISEARCH(query);
+        }
     }
 }

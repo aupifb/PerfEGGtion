@@ -6,4 +6,11 @@
         android:icon="@drawable/ic_settings_black_24dp"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item
+        android:id="@+id/drawer_settings2"
+        android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/action_settings"/>
+
 </menu>

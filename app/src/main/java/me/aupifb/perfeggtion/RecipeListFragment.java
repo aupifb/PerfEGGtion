@@ -76,7 +76,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        //updateUI();
     }
 
     @Override
@@ -89,8 +89,11 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             default:
-                updateUISEARCH();
+                //updateUISEARCH();
                 return super.onOptionsItemSelected(item);
+            case R.id.drawer_settings2:
+                updateUI();
+                return true;
         }
     }
 
@@ -110,9 +113,10 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         }*/
     }
 
-    private void updateUISEARCH() {
+    public void updateUISEARCH(String query) {
+
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
-        List<Recipe> recipes = recipeKitchen.getRecipesSearch();
+        List<Recipe> recipes = recipeKitchen.getRecipesSearch(query);
 
         mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
