@@ -48,6 +48,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_alarm_white_24dp"
+            app:layout_behavior="me.aupifb.perfeggtion.ScrollAwareFABBehavior"
             app:elevation="6dp"
             app:fabSize="normal"
             app:pressedTranslationZ="12dp"/>

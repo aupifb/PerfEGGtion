@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.accent)));
                     fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_alarm_off_24dp));
                     appbar.setExpanded(true);
+                    fabMain.show();
                 } else {
                     fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark)));
                     fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_help_black_24dp));

@@ -2,6 +2,7 @@ package me.aupifb.perfeggtion;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,8 @@ public class NewRecipeDialog extends DialogFragment {
                                     recipeDuration = Integer.parseInt(editText_duration.getText().toString());
                                     Recipe mRecipe = new Recipe(recipeTitle, recipeDuration, UUID.randomUUID().toString());
                                     RecipeKitchen.get(getContext()).addRecipe(mRecipe);
+                                    Intent intent = RecipePagerActivity.newIntent(getActivity(), mRecipe.getId());
+                                    startActivity(intent);
                                 } else {
                                     if (recipeTitle.length() == 0) {
                                         editText_title.setHint("Please enter a title");
