@@ -2,6 +2,8 @@ package me.aupifb.perfeggtion;
 
 
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +36,8 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     private static final String DIALOG_NEW_RECIPE = "DialogNewRecipe";
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
+
+    private boolean isSearching = false;
 
 
     private File mPhotoFile;
@@ -76,13 +80,21 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onResume() {
         super.onResume();
-        //updateUI();
+        updateUI();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_list, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        android.support.v7.widget.SearchView searchView =
+                ( android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
     }
 
     @Override
@@ -91,14 +103,16 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             default:
                 //updateUISEARCH();
                 return super.onOptionsItemSelected(item);
-            case R.id.drawer_settings2:
+            case R.id.reset_search:
                 updateUI();
+                isSearching = false;
                 return true;
         }
     }
 
 
     private void updateUI() {
+        if (!isSearching) {
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipes();
 
@@ -111,10 +125,12 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mAdapter.notifyDataSetChanged();
 
         }*/
+        }
     }
 
     public void updateUISEARCH(String query) {
 
+        isSearching = true;
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipesSearch(query);
 

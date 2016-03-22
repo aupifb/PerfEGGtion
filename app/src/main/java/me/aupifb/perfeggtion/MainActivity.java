@@ -165,13 +165,9 @@ public class MainActivity extends AppCompatActivity {
                     fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_alarm_off_24dp));
                     appbar.setExpanded(true);
                     fabMain.show();
-                    menu.findItem(R.id.search).setEnabled(false);
-                    supportInvalidateOptionsMenu();
                 } else {
                     fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark)));
                     fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_help_black_24dp));
-                    menu.findItem(R.id.search).setEnabled(true);
-                    supportInvalidateOptionsMenu();
                 }
             }
 
@@ -265,13 +261,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        android.support.v7.widget.SearchView searchView =
-                ( android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+
 
         return true;
 
