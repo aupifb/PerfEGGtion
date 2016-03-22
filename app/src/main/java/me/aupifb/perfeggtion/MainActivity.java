@@ -168,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     fabMain.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark)));
                     fabMain.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_help_black_24dp));
+                    RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentByTag(
+                            "android:switcher:" + R.id.pager + ":1");
+                    mRecipeListFragment.updateUI(true);
                 }
             }
 

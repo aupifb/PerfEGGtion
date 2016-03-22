@@ -38,7 +38,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     private RecipeAdapter mAdapter;
 
     private boolean isSearching = false;
-    private Menu menu;
+    private Menu menuList;
 
 
     private File mPhotoFile;
@@ -81,7 +81,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        updateUI(false);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_list, menu);
 
-        this.menu = menu;
+        this.menuList = menu;
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -106,16 +106,16 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
                 return super.onOptionsItemSelected(item);
             case R.id.reset_search:
                 isSearching = false;
-                updateUI();
-                menu.findItem(R.id.reset_search).setVisible(false);
-                menu.findItem(R.id.search).collapseActionView();
+                updateUI(false);
+                menuList.findItem(R.id.reset_search).setVisible(false);
+                menuList.findItem(R.id.search).collapseActionView();
                 return true;
         }
     }
 
 
-    private void updateUI() {
-        if (!isSearching) {
+    public void updateUI(boolean forceit) {
+        if (!isSearching || forceit) {
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipes();
         mAdapter = new RecipeAdapter(recipes);
@@ -129,7 +129,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
         isSearching = true;
-        menu.findItem(R.id.reset_search).setVisible(true);
+        menuList.findItem(R.id.reset_search).setVisible(true);
     }
 
 
