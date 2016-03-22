@@ -77,6 +77,7 @@ limitations under the License."
     <string name="recipe_title_list_fragment">Recipe Title: %s</string>
     <string name="recipe_duration_list_fragment">Duration: %d seconds</string>
     <string name="string_done">Done</string>
+    <string name="reset_search">Reset</string>
     <plurals name="minutes_remaining">
         <item quantity="one">1 minute</item>
         <item quantity="other">%d minutes</item>
