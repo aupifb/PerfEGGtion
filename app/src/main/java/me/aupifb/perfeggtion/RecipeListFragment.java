@@ -108,6 +108,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
                 isSearching = false;
                 updateUI();
                 menu.findItem(R.id.reset_search).setVisible(false);
+                menu.findItem(R.id.search).collapseActionView();
                 return true;
         }
     }
