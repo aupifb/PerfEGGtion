@@ -3,13 +3,6 @@
               android:layout_height="192dp"
               android:background="?attr/colorPrimaryDark"
               android:gravity="bottom"
-              android:padding="16dp"
-              android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="192dp"
-        android:src="@drawable/ic_settings_black_24dp"/>
+              android:padding="16dp">
 
 </LinearLayout>
