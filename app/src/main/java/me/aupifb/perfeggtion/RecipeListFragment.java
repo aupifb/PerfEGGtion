@@ -44,6 +44,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
     private File mPhotoFile;
     private ImageView mPhotoViewList;
 
+    private TextView mTextViewEmpty;
     /*@Bind(R.id.alacoque)
     ImageButton alacoque;*/
 
@@ -73,6 +74,10 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         mRecipeRecyclerView = (RecyclerView) view2
                 .findViewById(R.id.recipe_recycler_view);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mTextViewEmpty = (TextView) view2.findViewById(R.id.fragment_recipe_list_text_empty);
+
+
 
         return (view2);
     }
@@ -120,16 +125,26 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         List<Recipe> recipes = recipeKitchen.getRecipes();
         mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
+        mTextViewEmpty.setVisibility(View.INVISIBLE);
+        mRecipeRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 
     public void updateUISEARCH(String query) {
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipesSearch(query);
+        if (recipes.isEmpty()) {
+            mTextViewEmpty.setVisibility(View.VISIBLE);
+            mRecipeRecyclerView.setVisibility(View.INVISIBLE);
+        } else {
+
         mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
         isSearching = true;
         menuList.findItem(R.id.reset_search).setVisible(true);
+        mTextViewEmpty.setVisibility(View.INVISIBLE);
+        mRecipeRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
 
