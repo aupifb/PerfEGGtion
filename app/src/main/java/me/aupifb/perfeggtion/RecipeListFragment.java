@@ -152,6 +152,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         RecipeKitchen recipeKitchen = RecipeKitchen.get(getActivity());
         List<Recipe> recipes = recipeKitchen.getRecipesSearch(query);
         if (recipes.isEmpty()) {
+            isSearching = true;
             mTextViewEmpty.setVisibility(View.VISIBLE);
             mRecipeRecyclerView.setVisibility(View.INVISIBLE);
         } else {
