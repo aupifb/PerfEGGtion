@@ -6,8 +6,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -102,6 +105,21 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
                 ( android.support.v7.widget.SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        MenuItem menuItem = menu.findItem(R.id.search);
+        MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                isSearching = false;
+                updateUI(false);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -109,12 +127,12 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
         switch (item.getItemId()) {
             default:
                 return super.onOptionsItemSelected(item);
-            case R.id.reset_search:
+            /*case R.id.reset_search:
                 isSearching = false;
                 updateUI(false);
                 menuList.findItem(R.id.reset_search).setVisible(false);
                 menuList.findItem(R.id.search).collapseActionView();
-                return true;
+                return true;*/
         }
     }
 
@@ -137,11 +155,10 @@ public class RecipeListFragment extends android.support.v4.app.Fragment implemen
             mTextViewEmpty.setVisibility(View.VISIBLE);
             mRecipeRecyclerView.setVisibility(View.INVISIBLE);
         } else {
-
         mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
         isSearching = true;
-        menuList.findItem(R.id.reset_search).setVisible(true);
+        //menuList.findItem(R.id.reset_search).setVisible(true);
         mTextViewEmpty.setVisibility(View.INVISIBLE);
         mRecipeRecyclerView.setVisibility(View.VISIBLE);
         }
